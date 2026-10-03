@@ -739,7 +739,761 @@ p{line-height:1.75}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
-  </style>
+  
+/* ---- Final polish layer ------------------------------------------------ */
+body{
+  background:
+    radial-gradient(circle at 50% -16%,rgba(166,13,40,.24),transparent 31%),
+    radial-gradient(circle at 4% 55%,rgba(99,8,28,.10),transparent 23%),
+    radial-gradient(circle at 96% 45%,rgba(214,160,59,.07),transparent 19%),
+    linear-gradient(180deg,#140306 0%,#080103 100%);
+}
+
+.site-shell{
+  width:min(1360px,calc(100% - 24px));
+  padding-top:12px;
+}
+
+.site-card{
+  border-color:rgba(255,237,197,.18);
+  background:
+    linear-gradient(180deg,rgba(55,7,15,.53),rgba(9,2,4,.97));
+  box-shadow:
+    0 34px 110px rgba(0,0,0,.48),
+    0 0 0 1px rgba(255,255,255,.01) inset;
+}
+
+.site-card::after{opacity:.7}
+
+/* Header: make the title unmistakable at every breakpoint. */
+.brand-strip{
+  height:clamp(128px,11.5vw,154px);
+  border-bottom-color:rgba(255,237,195,.24);
+}
+.brand-strip img{
+  object-position:center 50%;
+  filter:saturate(.68) contrast(1.10) brightness(.58);
+  transform:scale(1.03);
+}
+.brand-strip::before{
+  background:
+    linear-gradient(90deg,
+      rgba(6,0,2,.90) 0%,
+      rgba(6,0,2,.44) 27%,
+      rgba(6,0,2,.24) 50%,
+      rgba(6,0,2,.44) 73%,
+      rgba(6,0,2,.90) 100%),
+    linear-gradient(180deg,rgba(6,0,2,.12),rgba(6,0,2,.62));
+}
+.brand-lockup{transform:translateY(-2px)}
+.brand-word{
+  font-size:clamp(4.2rem,7.1vw,6.6rem);
+  line-height:.71;
+  text-shadow:
+    0 9px 32px rgba(0,0,0,.48),
+    0 0 34px rgba(232,198,118,.10);
+}
+.brand-signature{
+  margin-top:13px;
+  font-size:clamp(.60rem,.78vw,.76rem);
+  letter-spacing:.26em;
+  text-indent:.26em;
+}
+.brand-nav a{
+  color:rgba(255,240,208,.92);
+  background:rgba(6,1,3,.28);
+}
+
+/* Landing composition */
+.hero-grid{
+  min-height:clamp(590px,77vh,820px);
+  border-color:rgba(255,237,197,.15);
+  background:
+    radial-gradient(circle at 50% 48%,rgba(245,208,116,.15),transparent 14%),
+    radial-gradient(circle at 25% 56%,rgba(154,11,40,.20),transparent 25%),
+    radial-gradient(circle at 76% 42%,rgba(233,180,74,.10),transparent 24%),
+    linear-gradient(125deg,#150306,#26070d 46%,#35110d 75%,#100204);
+}
+.hero-grid::before{
+  opacity:.9;
+  filter:blur(22px);
+  animation:heroBreath 14s ease-in-out infinite alternate;
+}
+.hero-copy{padding:clamp(28px,6vw,82px)}
+.hero-copy .brand-name{
+  font-size:.74rem;
+  letter-spacing:.07em;
+  padding:8px 13px;
+}
+h1{
+  margin-top:22px;
+  max-width:1030px;
+  font-size:clamp(4.25rem,8.9vw,9.6rem);
+}
+.hero-copy>p{
+  max-width:760px;
+  font-size:clamp(1.02rem,1vw + .56rem,1.2rem);
+}
+.hero-quote{
+  width:min(700px,100%);
+  padding:17px 20px;
+  background:rgba(8,1,3,.28);
+  border-color:rgba(255,237,197,.13);
+}
+
+/* Form and quiz readability */
+.panel-surface{
+  border-color:rgba(255,237,197,.13);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.047),rgba(255,255,255,.015));
+}
+.field input{
+  min-height:56px;
+}
+.answer{
+  min-height:76px;
+  font-size:1rem;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.022)),
+    linear-gradient(90deg,rgba(127,10,31,.14),transparent 62%);
+}
+.answer::after{font-size:1rem}
+.answer:hover{
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.20),
+    0 0 0 1px rgba(232,198,118,.08) inset;
+}
+
+/* Reveal and result */
+.reveal-stage{
+  min-height:clamp(540px,76vh,780px);
+  background:
+    radial-gradient(circle at 50% 48%,rgba(255,226,142,.20),transparent 13%),
+    radial-gradient(circle at 50% 50%,rgba(147,10,38,.20),transparent 43%),
+    linear-gradient(145deg,#29070f,#0a0204 58%,#1f050c);
+}
+.reveal-ring{
+  border-color:rgba(232,198,118,.32);
+}
+.reveal-ring.ring-b{
+  border-color:rgba(250,221,145,.24);
+}
+.reveal-symbol{
+  width:112px;height:112px;
+  font-size:2.7rem;
+}
+.result-wrap{
+  min-height:clamp(540px,75vh,780px);
+}
+.result-inner{
+  padding-inline:clamp(22px,8vw,95px);
+}
+.result-kicker{letter-spacing:.29em}
+.result-title{
+  font-size:clamp(4.4rem,10.6vw,9.4rem);
+}
+.tattoo-note{
+  padding:15px 21px;
+  background:rgba(8,1,3,.30);
+}
+
+/* Book: use the dedicated showcase image, with a disciplined editorial frame. */
+.book-section{
+  grid-template-columns:minmax(220px,300px) minmax(0,1fr);
+  gap:clamp(28px,4.8vw,58px);
+  padding:clamp(24px,4vw,38px);
+  border-color:rgba(255,237,197,.13);
+}
+.book-visual{
+  align-items:center;
+}
+.book-cover-small{
+  width:min(285px,100%);
+  padding:9px;
+  border-radius:23px;
+  background:
+    linear-gradient(145deg,rgba(255,241,199,.10),rgba(255,255,255,.02));
+  box-shadow:
+    0 26px 58px rgba(0,0,0,.36),
+    0 0 0 1px rgba(255,235,190,.06) inset;
+}
+.book-cover-small img{
+  width:100%;
+  aspect-ratio:770/940;
+  object-fit:cover;
+  object-position:center;
+  border-radius:15px;
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+.book-copy{
+  padding-block:4px;
+}
+.book-copy h2{
+  font-size:clamp(2.55rem,4.5vw,4.2rem);
+  margin-bottom:13px;
+}
+.book-copy p{
+  max-width:74ch;
+  font-size:1rem;
+  line-height:1.78;
+}
+.store-links{
+  max-width:760px;
+  gap:12px;
+  margin-top:18px;
+}
+.store-link{
+  min-height:58px;
+  justify-content:space-between;
+  padding:13px 17px 13px 18px;
+  border-radius:17px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.022));
+  box-shadow:0 8px 22px rgba(0,0,0,.13);
+}
+.store-link:first-child{
+  background:linear-gradient(135deg,#f7e2a5,#c18b2d);
+}
+.store-arrow{
+  font-size:1.05rem;
+  opacity:.7;
+}
+.store-link:hover .store-arrow{
+  transform:translate(3px,-2px);
+  opacity:1;
+}
+
+/* Make the site feel intentionally "app-like" during the quiz. */
+.quiz-head{
+  padding:0 4px;
+  position:sticky;
+  top:calc(clamp(118px,11vw,146px) + 12px);
+  z-index:25;
+  width:min(980px,100%);
+  margin-inline:auto;
+  padding-block:7px;
+  background:rgba(11,2,4,.72);
+  backdrop-filter:blur(14px);
+  border-radius:999px;
+}
+.progress{height:6px}
+
+/* Keep header visible and usable on mobile. */
+@media(max-width:700px){
+  .site-shell{width:min(100% - 10px,1360px)}
+  .brand-strip{
+    height:100px;
+    border-radius:24px 24px 0 0;
+  }
+  .brand-word{
+    font-size:3.35rem;
+  }
+  .brand-signature{
+    font-size:.48rem;
+    letter-spacing:.18em;
+    text-indent:.18em;
+  }
+  .brand-strip::after{width:64%;bottom:7px}
+  .brand-corner{top:12px}
+  .hero-grid{
+    min-height:calc(100vh - 125px);
+  }
+  h1{
+    font-size:clamp(3.55rem,18.4vw,5.45rem);
+  }
+  .hero-copy{padding:25px 16px}
+  .book-section{
+    grid-template-columns:1fr;
+    gap:25px;
+  }
+  .book-cover-small{
+    width:min(235px,72vw);
+  }
+  .book-copy{text-align:left}
+  .store-links{margin-top:14px}
+  .quiz-head{
+    top:calc(100px + 8px);
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .quiz-head{backdrop-filter:none}
+}
+
+
+/* ================================================================
+   DUALITY — FINAL VISUAL POLISH
+   ================================================================ */
+:root{
+  --gold:#e7c474;
+  --gold-hi:#fff0c8;
+  --cream:#f8eadb;
+  --muted:#cdb7a5;
+  --ink:#090102;
+  --wine:#26060d;
+  --wine-2:#4c0916;
+  --red:#9d1128;
+  --display:"Cormorant Garamond",Georgia,serif;
+  --body:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+  background:
+    radial-gradient(circle at 50% -12%,rgba(160,16,43,.22),transparent 31%),
+    radial-gradient(circle at 5% 55%,rgba(104,8,29,.09),transparent 23%),
+    radial-gradient(circle at 95% 42%,rgba(221,175,71,.07),transparent 20%),
+    linear-gradient(180deg,#120205 0%,#080102 100%);
+}
+
+/* Header: make the wordmark the hero, not the background crop. */
+.brand-strip{
+  height:clamp(126px,11.6vw,154px);
+  background:#180306;
+}
+.brand-strip img{
+  object-position:center 50%;
+  filter:saturate(.58) contrast(1.10) brightness(.54);
+  transform:scale(1.04);
+}
+.brand-strip::before{
+  background:
+    linear-gradient(90deg,
+      rgba(6,0,2,.88) 0%,
+      rgba(6,0,2,.45) 25%,
+      rgba(6,0,2,.24) 50%,
+      rgba(6,0,2,.45) 75%,
+      rgba(6,0,2,.88) 100%),
+    linear-gradient(180deg,rgba(6,0,2,.08),rgba(6,0,2,.64));
+}
+.brand-lockup{
+  transform:translateY(-2px);
+}
+.brand-word{
+  font-size:clamp(4.3rem,7vw,6.7rem);
+  line-height:.72;
+  color:var(--gold-hi);
+  letter-spacing:-.043em;
+  text-shadow:
+    0 9px 30px rgba(0,0,0,.48),
+    0 0 32px rgba(231,196,116,.11);
+}
+.brand-signature{
+  margin-top:13px;
+  font-size:clamp(.58rem,.76vw,.75rem);
+  letter-spacing:.28em;
+  text-indent:.28em;
+  color:rgba(255,241,209,.91);
+}
+.brand-strip::after{
+  width:min(520px,48%);
+  bottom:11px;
+}
+
+/* Hero: quieter, more editorial. */
+.hero-grid{
+  min-height:clamp(570px,74vh,790px);
+  background:
+    radial-gradient(circle at 50% 45%,rgba(236,196,106,.14),transparent 15%),
+    radial-gradient(circle at 18% 62%,rgba(142,10,38,.18),transparent 24%),
+    radial-gradient(circle at 82% 38%,rgba(224,168,65,.10),transparent 24%),
+    linear-gradient(125deg,#130305,#24070d 46%,#32100d 76%,#100204);
+}
+.hero-grid::before{
+  opacity:.78;
+  filter:blur(22px);
+  animation:heroBreath 15s ease-in-out infinite alternate;
+}
+.hero-copy{
+  padding:clamp(28px,6vw,78px);
+}
+.hero-kicker{
+  display:inline-flex;
+  margin-bottom:8px;
+  padding:9px 15px;
+  border:1px solid rgba(255,240,200,.16);
+  border-radius:999px;
+  background:rgba(7,1,3,.34);
+  backdrop-filter:blur(9px);
+  letter-spacing:.18em;
+  font-size:.67rem;
+}
+.hero-copy h1{
+  max-width:1050px;
+  margin-top:18px;
+  font-size:clamp(4.1rem,8.6vw,9.2rem);
+}
+.hero-copy>p{
+  max-width:760px;
+  margin-inline:auto;
+  font-size:clamp(1.02rem,1vw + .55rem,1.18rem);
+  color:rgba(250,236,221,.87);
+}
+.hero-quote{
+  width:min(690px,100%);
+  margin:22px auto 0;
+  border-color:rgba(255,240,200,.12);
+  background:rgba(7,1,3,.28);
+}
+
+/* Form / question controls. */
+.panel-surface{
+  border-color:rgba(255,240,205,.12);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.043),rgba(255,255,255,.015));
+}
+.field input{
+  min-height:56px;
+}
+.answer{
+  min-height:74px;
+  border-radius:19px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.058),rgba(255,255,255,.022)),
+    linear-gradient(90deg,rgba(126,8,31,.12),transparent 62%);
+}
+.answer:hover{
+  border-color:rgba(231,196,116,.56);
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.19),
+    0 0 0 1px rgba(231,196,116,.06) inset;
+}
+
+/* Sticky progress bar, but slim and discreet. */
+.quiz-head{
+  width:min(980px,100%);
+  margin-inline:auto;
+  position:sticky;
+  top:calc(clamp(118px,11vw,146px) + 10px);
+  z-index:28;
+  padding:7px 9px;
+  background:rgba(9,2,4,.68);
+  border:1px solid rgba(255,240,200,.08);
+  backdrop-filter:blur(14px);
+  border-radius:999px;
+}
+.progress{height:5px}
+
+/* Reveal: polished cinematic look. */
+.reveal-stage{
+  min-height:clamp(540px,75vh,780px);
+  background:
+    radial-gradient(circle at 50% 48%,rgba(255,224,139,.18),transparent 13%),
+    radial-gradient(circle at 50% 50%,rgba(146,8,38,.23),transparent 45%),
+    linear-gradient(145deg,#2a070f,#090204 58%,#1f050c);
+}
+.reveal-stage::before{
+  opacity:.72;
+}
+.reveal-symbol{
+  width:112px;
+  height:112px;
+  font-size:2.75rem;
+  box-shadow:
+    0 0 82px rgba(232,195,109,.14),
+    inset 0 0 34px rgba(255,255,255,.04);
+}
+
+/* Result remains clean and legible. */
+.result-wrap{
+  min-height:clamp(540px,75vh,780px);
+}
+.result-inner{
+  padding:clamp(32px,6vw,76px);
+}
+.result-title{
+  font-size:clamp(4.35rem,10.5vw,9.3rem);
+}
+.tattoo-note{
+  background:rgba(8,1,3,.31);
+  border-color:rgba(255,240,200,.24);
+}
+
+/* Book section: stronger editorial layout, actual cover proportion,
+   no distorted "landscape" crop. */
+.book-section{
+  grid-template-columns:minmax(225px,300px) minmax(0,1fr);
+  align-items:center;
+  gap:clamp(30px,5vw,62px);
+  padding:clamp(24px,4vw,40px);
+  border-color:rgba(255,240,205,.13);
+}
+.book-visual{
+  display:flex;
+  justify-content:center;
+  min-width:0;
+}
+.book-cover-small{
+  width:min(250px,100%);
+  padding:10px;
+  border:1px solid rgba(255,240,205,.19);
+  border-radius:25px;
+  background:
+    linear-gradient(145deg,rgba(255,241,200,.10),rgba(255,255,255,.02));
+  box-shadow:
+    0 26px 60px rgba(0,0,0,.40),
+    0 0 0 1px rgba(255,235,190,.04) inset;
+}
+.book-cover-small::before{
+  display:none;
+}
+.book-cover-small::after{
+  left:17px;
+  right:17px;
+  bottom:-13px;
+  height:18px;
+  background:rgba(0,0,0,.50);
+  filter:blur(10px);
+}
+.book-cover-small img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:2/3;
+  object-fit:cover;
+  object-position:center;
+  border-radius:16px;
+  box-shadow:0 14px 30px rgba(0,0,0,.30);
+}
+.book-copy{
+  min-width:0;
+  padding-block:2px;
+}
+.book-copy .eyebrow{
+  margin-bottom:5px;
+}
+.book-copy h2{
+  font-size:clamp(2.65rem,4.4vw,4.25rem);
+  line-height:.91;
+  margin-bottom:14px;
+}
+.book-copy p{
+  max-width:72ch;
+  margin:0 0 20px;
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1.77;
+}
+.store-links{
+  max-width:760px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:11px;
+}
+.store-link{
+  position:relative;
+  min-height:68px;
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr) auto;
+  align-items:center;
+  gap:10px;
+  padding:11px 15px;
+  border-radius:17px;
+  border:1px solid rgba(255,240,205,.18);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.022));
+  box-shadow:0 10px 25px rgba(0,0,0,.14);
+  color:var(--cream);
+  text-decoration:none;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
+}
+.store-link:hover{
+  transform:translateY(-3px);
+  border-color:rgba(232,198,118,.56);
+  box-shadow:0 16px 32px rgba(0,0,0,.20);
+}
+.store-link.amazon{
+  background:linear-gradient(135deg,#f6e1a4,#c28d2f);
+  border-color:rgba(255,241,200,.60);
+  color:#2c0c05;
+}
+.store-mark{
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  color:#2c0c05;
+  background:rgba(255,248,226,.72);
+  font:900 1.55rem/1 Arial,sans-serif;
+}
+.text-mark{
+  font-size:.62rem;
+  letter-spacing:-.045em;
+  text-transform:lowercase;
+}
+.play-mark{
+  color:#fff;
+  font-size:1.05rem;
+  background:linear-gradient(135deg,#34a853,#4285f4 54%,#fbbc05 78%,#ea4335);
+}
+.store-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  text-align:left;
+}
+.store-copy strong{
+  font-size:.93rem;
+  font-weight:900;
+}
+.store-copy small{
+  font-size:.71rem;
+  opacity:.66;
+}
+.store-arrow{
+  font-size:1.05rem;
+  opacity:.66;
+  transition:transform .18s ease,opacity .18s ease;
+}
+.store-link:hover .store-arrow{
+  transform:translate(3px,-2px);
+  opacity:1;
+}
+
+/* Desktop navigation in the header: unobtrusive. */
+.brand-nav a{
+  font-size:.62rem;
+  letter-spacing:.20em;
+  background:rgba(7,1,3,.22);
+}
+
+/* Mobile */
+@media(max-width:980px){
+  .book-section{
+    grid-template-columns:200px minmax(0,1fr);
+  }
+  .store-links{
+    grid-template-columns:1fr;
+    max-width:440px;
+  }
+}
+@media(max-width:700px){
+  .site-shell{
+    width:min(100% - 10px,1360px);
+    padding-top:6px;
+  }
+  .site-card{
+    border-radius:24px;
+  }
+  .brand-strip{
+    height:100px;
+    border-radius:24px 24px 0 0;
+  }
+  .brand-word{
+    font-size:3.32rem;
+  }
+  .brand-signature{
+    font-size:.47rem;
+    letter-spacing:.16em;
+    text-indent:.16em;
+  }
+  .brand-strip::after{
+    width:62%;
+    bottom:7px;
+  }
+  .brand-corner{
+    top:12px;
+    font-size:.84rem;
+  }
+  .brand-corner-left{left:16px}
+  .brand-corner-right{right:16px}
+
+  .hero-grid{
+    min-height:calc(100vh - 124px);
+    border-radius:23px;
+  }
+  .hero-copy{
+    padding:24px 16px;
+  }
+  .hero-kicker{
+    font-size:.59rem;
+    letter-spacing:.12em;
+    padding:8px 11px;
+  }
+  .hero-copy h1{
+    font-size:clamp(3.55rem,18.2vw,5.45rem);
+    line-height:.80;
+  }
+  .hero-copy>p{
+    font-size:.96rem;
+  }
+  .hero-quote{
+    font-size:.91rem;
+    padding:14px 15px;
+  }
+
+  .quiz-head{
+    top:calc(100px + 7px);
+    padding:6px 8px;
+  }
+
+  .question-title{
+    font-size:clamp(2.2rem,10.4vw,3.25rem);
+  }
+  .answer{
+    min-height:72px;
+    padding:18px 48px 18px 16px;
+  }
+
+  .reveal-stage{
+    min-height:calc(100vh - 121px);
+    border-radius:23px;
+  }
+  .reveal-ring{width:76vw}
+  .reveal-ring.ring-b{width:54vw}
+  .reveal-ring.ring-c{width:90vw}
+  .reveal-symbol{
+    width:84px;height:84px;font-size:2.2rem;
+  }
+  .reveal-word{
+    bottom:30%;
+    font-size:1rem;
+    letter-spacing:.30em;
+    text-indent:.30em;
+  }
+  .reveal-caption{
+    bottom:15%;
+    font-size:.72rem;
+    letter-spacing:.08em;
+  }
+
+  .result-wrap{
+    min-height:calc(100vh - 121px);
+    border-radius:23px;
+  }
+  .result-inner{
+    min-height:calc(100vh - 121px);
+    padding:30px 18px 38px;
+  }
+  .result-title{
+    font-size:clamp(4rem,20vw,6.2rem);
+  }
+  .result-text{
+    font-size:1rem;
+    line-height:1.72;
+  }
+  .tattoo-note{
+    font-size:.85rem;
+  }
+
+  .book-section{
+    grid-template-columns:1fr;
+    gap:24px;
+  }
+  .book-cover-small{
+    width:min(220px,70vw);
+  }
+  .book-copy h2{
+    font-size:clamp(2.2rem,10.5vw,3.15rem);
+  }
+  .store-links{
+    grid-template-columns:1fr;
+    max-width:none;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="site-shell">
@@ -748,7 +1502,7 @@ p{line-height:1.75}
         <img src="./assets/duality-header.jpg" alt="Signature visuelle Duality" width="1679" height="649">
         <div class="brand-lockup" aria-label="Duality — Yasmine Houb — Le Quiz des Clans">
           <div class="brand-word">Duality</div>
-          <div class="brand-signature">YAS&nbsp;MINE HOUB <span aria-hidden="true">—</span> LE QUIZ DES CLANS</div>
+          <div class="brand-signature">YASMINE HOUB <span aria-hidden="true">—</span> LE QUIZ DES CLANS</div>
         </div>
         <nav class="brand-nav" aria-label="Navigation du site">
           <a href="#quizApp">Le quiz</a>
@@ -762,7 +1516,7 @@ p{line-height:1.75}
       <div class="content">
         <section class="hero-grid" aria-labelledby="pageTitle">
           <div class="hero-copy">
-            <span class="eyebrow brand-name">Duality — Yasmine Houb — Le Quiz des Clans</span>
+            <span class="eyebrow hero-kicker">LE QUIZ DES CLANS · YASMINE HOUB</span>
             <h1 id="pageTitle">Quel clan sommeille en toi&nbsp;?</h1>
             <p>À Ordyte, chaque désir a un prix. Entre Ombres et Lumières, il n’existe pas de bon ou de mauvais choix — seulement une force qui te ressemble davantage.</p>
             <div class="hero-quote">Réponds instinctivement et découvre le clan qui t’appelle. À la fin, présente ton résultat pour recevoir ton tatouage temporaire.</div>
@@ -783,15 +1537,15 @@ p{line-height:1.75}
                 <div class="form-grid">
                   <div class="field">
                     <label for="firstName">Prénom <span aria-hidden="true">*</span></label>
-                    <input id="firstName" name="firstName" type="text" autocomplete="given-name" placeholder="Ex. Léa" required aria-required="true">
+                    <input id="firstName" name="firstName" type="text" autocomplete="given-name" placeholder="Ex. Yasmine" required aria-required="true">
                   </div>
                   <div class="field">
                     <label for="lastName">Nom <span aria-hidden="true">*</span></label>
-                    <input id="lastName" name="lastName" type="text" autocomplete="family-name" placeholder="Ex. Morel" required aria-required="true">
+                    <input id="lastName" name="lastName" type="text" autocomplete="family-name" placeholder="Ex. Houb" required aria-required="true">
                   </div>
                   <div class="field full">
                     <label for="email">Adresse e-mail <span style="font-weight:500;color:var(--muted)">(facultatif)</span></label>
-                    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="nom@email.com">
+                    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="yasmine.houb@email.com">
                   </div>
                   <label class="consent" for="eventsOptIn">
                     <input id="eventsOptIn" name="eventsOptIn" type="checkbox">
@@ -853,9 +1607,9 @@ p{line-height:1.75}
                 <h2 id="bookTitle">Duality — Tome 1</h2>
                 <p>À Ordyte, la quête des désirs a toujours un prix. Seyrsnis Wilanza, princesse du royaume des Ombres, cherche une liberté que son rang lui refuse. Deen Spriar, soldat des Lumières, poursuit une vengeance mûrie pendant cinq ans. Une soirée suffit à bouleverser leurs certitudes : entre faux-semblants, magie et sentiments interdits, leurs chemins se retrouvent liés.</p>
                 <div class="store-links" aria-label="Acheter ou découvrir le livre">
-                  <a class="store-link" href="https://www.amazon.fr/Duality-1-Yasmine-Houb/dp/2810620326" target="_blank" rel="noopener noreferrer">Amazon</a>
-                  <a class="store-link" href="https://www.fnac.com/a21951564/Yasmine-Houb-Duality" target="_blank" rel="noopener noreferrer">Fnac</a>
-                  <a class="store-link" href="https://play.google.com/store/books/details?id=v6J3EQAAQBAJ&rdid=book-v6J3EQAAQBAJ&rdot=1&source=gbs_atb&pcampaignid=books_booksearch_atb" target="_blank" rel="noopener noreferrer">Google Play</a>
+                  <a class="store-link amazon" href="https://www.amazon.fr/Duality-1-Yasmine-Houb/dp/2810620326" target="_blank" rel="noopener noreferrer" aria-label="Acheter Duality Tome 1 sur Amazon"><span class="store-mark" aria-hidden="true">a</span><span class="store-copy"><strong>Amazon</strong><small>Acheter le roman</small></span><span class="store-arrow" aria-hidden="true">↗</span></a>
+                  <a class="store-link fnac" href="https://www.fnac.com/a21951564/Yasmine-Houb-Duality" target="_blank" rel="noopener noreferrer" aria-label="Acheter Duality Tome 1 sur la Fnac"><span class="store-mark text-mark" aria-hidden="true">fnac</span><span class="store-copy"><strong>Fnac</strong><small>Acheter le roman</small></span><span class="store-arrow" aria-hidden="true">↗</span></a>
+                  <a class="store-link play" href="https://play.google.com/store/books/details?id=v6J3EQAAQBAJ&rdid=book-v6J3EQAAQBAJ&rdot=1&source=gbs_atb&pcampaignid=books_booksearch_atb" target="_blank" rel="noopener noreferrer" aria-label="Lire Duality Tome 1 sur Google Play"><span class="store-mark play-mark" aria-hidden="true">▶</span><span class="store-copy"><strong>Google Play</strong><small>Lire le roman</small></span><span class="store-arrow" aria-hidden="true">↗</span></a>
                 </div>
               </div>
             </section>
