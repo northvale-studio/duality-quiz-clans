@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Duality — Yasmine Houb — Le Quiz des Clans</title>
+  <meta name="description" content="Duality — Yasmine Houb — Le Quiz des Clans. Découvre ton clan dans l’univers d’Ordyte.">
+  <meta name="theme-color" content="#270509">
+  <meta property="og:title" content="Duality — Yasmine Houb — Le Quiz des Clans">
+  <meta property="og:description" content="Réponds instinctivement et découvre le clan qui te ressemble le plus.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="./config.js"></script>
+  <style>
+:root{
+  --ink:#090102;
+  --ink-2:#120205;
+  --wine:#2a050b;
+  --wine-2:#4b0812;
+  --crimson:#991126;
+  --crimson-hi:#cf2c46;
+  --gold:#e8c676;
+  --gold-hi:#fff0c8;
+  --cream:#faecdd;
+  --muted:#cdb8a6;
+  --line:rgba(255,235,191,.15);
+  --line-hi:rgba(255,235,191,.34);
+  --display:"Cormorant Garamond",Georgia,serif;
+  --body:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --shadow:0 30px 100px rgba(0,0,0,.48);
+  --shadow-soft:0 20px 56px rgba(0,0,0,.28);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--cream);
+  font-family:var(--body);
+  background:
+    radial-gradient(circle at 50% -10%,rgba(150,12,39,.22),transparent 32%),
+    radial-gradient(circle at 0% 55%,rgba(94,9,29,.10),transparent 25%),
+    radial-gradient(circle at 100% 30%,rgba(205,150,54,.07),transparent 20%),
+    linear-gradient(180deg,#150306 0%,#080102 100%);
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.30;
+  background:
+    radial-gradient(circle at 18% 18%,rgba(255,255,255,.04),transparent 16%),
+    radial-gradient(circle at 82% 70%,rgba(255,255,255,.026),transparent 18%);
+}
+
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+::selection{background:rgba(232,198,118,.25);color:#fff8e7}
+
+.site-shell{
+  width:min(1340px,calc(100% - 26px));
+  margin:0 auto;
+  padding:14px 0 30px;
+}
+.site-card{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:34px;
+  background:linear-gradient(180deg,rgba(52,6,14,.53),rgba(9,2,4,.96));
+  box-shadow:var(--shadow);
+  overflow:visible;
+  isolation:isolate;
+}
+.site-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:34px;
+  background:linear-gradient(90deg,rgba(255,241,206,.025),transparent 16%,transparent 84%,rgba(255,241,206,.025));
+}
+
+/* Premium persistent header: image + readable wordmark */
+.brand-strip{
+  position:sticky;
+  top:0;
+  z-index:60;
+  height:clamp(118px,11vw,146px);
+  overflow:hidden;
+  border-radius:34px 34px 0 0;
+  border-bottom:1px solid rgba(255,239,201,.22);
+  background:#170306;
+  box-shadow:0 16px 42px rgba(0,0,0,.28);
+}
+.brand-strip img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 50%;
+  filter:saturate(.78) contrast(1.08) brightness(.66);
+  transform:scale(1.035);
+}
+.brand-strip::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(8,1,3,.84),rgba(8,1,3,.28) 26%,rgba(8,1,3,.18) 50%,rgba(8,1,3,.28) 74%,rgba(8,1,3,.84)),
+    linear-gradient(180deg,rgba(8,1,3,.12),rgba(8,1,3,.52));
+}
+.brand-strip::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:12px;
+  width:min(500px,48%);
+  height:1px;
+  transform:translateX(-50%);
+  z-index:5;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  box-shadow:0 0 20px rgba(232,198,118,.24);
+}
+.brand-lockup{
+  position:absolute;
+  z-index:4;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  text-align:center;
+  transform:translateY(-4px);
+}
+.brand-word{
+  font-family:var(--display);
+  font-size:clamp(3.3rem,6vw,5.8rem);
+  line-height:.76;
+  letter-spacing:-.035em;
+  color:var(--gold-hi);
+  text-shadow:0 8px 28px rgba(0,0,0,.44),0 0 26px rgba(232,198,118,.10);
+}
+.brand-signature{
+  margin-top:11px;
+  font-size:clamp(.56rem,.72vw,.72rem);
+  letter-spacing:.34em;
+  text-indent:.34em;
+  color:rgba(255,240,204,.90);
+  font-weight:800;
+  text-transform:uppercase;
+}
+.brand-signature span{color:var(--gold)}
+.brand-nav{
+  position:absolute;
+  z-index:5;
+  left:clamp(18px,4vw,52px);
+  right:clamp(18px,4vw,52px);
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  pointer-events:none;
+}
+.brand-nav a{
+  pointer-events:auto;
+  color:rgba(255,240,205,.86);
+  text-decoration:none;
+  font-size:.65rem;
+  text-transform:uppercase;
+  letter-spacing:.24em;
+  font-weight:900;
+  padding:10px 12px;
+  border:1px solid transparent;
+  border-radius:999px;
+  transition:.2s ease;
+  background:rgba(9,1,3,.20);
+}
+.brand-nav a:hover{
+  color:#fff8e5;
+  border-color:rgba(232,198,118,.28);
+  background:rgba(10,2,4,.42);
+}
+.brand-nav-dot{
+  position:absolute;
+  left:50%;
+  width:3px;height:3px;
+  transform:translate(-50%,0);
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 10px rgba(232,198,118,.56);
+  opacity:.7;
+}
+.brand-corner{
+  position:absolute;
+  z-index:5;
+  top:18px;
+  color:rgba(232,198,118,.68);
+  font-family:var(--display);
+  font-size:1rem;
+}
+.brand-corner-left{left:30px}
+.brand-corner-right{right:30px}
+
+.content{padding:clamp(18px,3.5vw,52px)}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:var(--gold-hi);
+  text-transform:uppercase;
+  letter-spacing:.21em;
+  font-size:.71rem;
+  font-weight:900;
+}
+.eyebrow::before{
+  content:"";
+  width:30px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold));
+}
+.brand-name{
+  text-transform:none;
+  letter-spacing:.045em;
+  font-size:.78rem;
+  padding:8px 12px;
+  border:1px solid rgba(255,240,200,.17);
+  border-radius:999px;
+  background:rgba(8,1,3,.46);
+  backdrop-filter:blur(9px);
+}
+h1,h2,h3{font-family:var(--display);font-weight:600}
+h1{
+  margin:18px auto 22px;
+  font-size:clamp(4rem,8.8vw,9.3rem);
+  line-height:.78;
+  letter-spacing:-.045em;
+  color:var(--gold-hi);
+  max-width:960px;
+  text-wrap:balance;
+}
+h2{
+  margin:0 0 12px;
+  font-size:clamp(2.1rem,4.7vw,4rem);
+  line-height:.91;
+  color:var(--gold-hi);
+  text-wrap:balance;
+}
+p{line-height:1.75}
+
+.hero-grid{
+  position:relative;
+  min-height:clamp(570px,76vh,800px);
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:1px solid rgba(255,240,205,.11);
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 68% 44%,rgba(248,211,121,.26),transparent 21%),
+    radial-gradient(circle at 26% 54%,rgba(153,12,39,.24),transparent 23%),
+    radial-gradient(circle at 50% 65%,rgba(255,255,255,.05),transparent 25%),
+    linear-gradient(115deg,#140306,#25070d 46%,#3b100b 73%,#120305);
+  box-shadow:var(--shadow-soft);
+}
+.hero-grid::before{
+  content:"";
+  position:absolute;
+  inset:-24%;
+  background:
+    conic-gradient(from 250deg at 50% 50%,transparent 0 28%,rgba(232,198,118,.08) 34%,transparent 41% 64%,rgba(177,19,50,.10) 72%,transparent 81%),
+    radial-gradient(circle at 24% 50%,rgba(122,6,31,.34),transparent 19%),
+    radial-gradient(circle at 76% 48%,rgba(255,224,139,.26),transparent 20%);
+  filter:blur(18px);
+  animation:heroBreath 12s ease-in-out infinite alternate;
+}
+.hero-grid::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 50%,transparent 0 33%,rgba(255,240,205,.032) 34%,transparent 35% 100%),
+    linear-gradient(180deg,rgba(7,1,3,.02),rgba(7,1,3,.16) 44%,rgba(7,1,3,.48));
+}
+.hero-copy{
+  position:relative;
+  z-index:3;
+  width:min(940px,100%);
+  padding:clamp(24px,6vw,74px);
+  text-align:center;
+}
+.hero-copy .brand-name{margin:0 auto 2px}
+.hero-copy>p{
+  max-width:730px;
+  margin:0 auto;
+  color:rgba(248,234,217,.86);
+  font-size:clamp(1.03rem,1vw + .58rem,1.18rem);
+  text-wrap:balance;
+}
+.hero-quote{
+  width:min(650px,100%);
+  margin:24px auto 0;
+  padding:16px 19px;
+  border:1px solid rgba(255,240,200,.12);
+  border-radius:18px;
+  background:rgba(7,1,3,.30);
+  backdrop-filter:blur(10px);
+  color:var(--cream);
+}
+.hero-copy::after{
+  content:"";
+  display:block;
+  width:135px;
+  height:1px;
+  margin:30px auto 0;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  box-shadow:0 0 14px rgba(232,198,118,.18);
+}
+@keyframes heroBreath{
+  from{transform:scale(1) translate3d(-1%,0,0)}
+  to{transform:scale(1.06) translate3d(1%,0,0)}
+}
+
+.wizard{margin-top:28px}
+.panel{display:none;animation:pageIn .44s cubic-bezier(.2,.78,.2,1)}
+.panel.active{display:block}
+#revealPanel.active{animation:none}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.panel-surface{
+  position:relative;
+  overflow:hidden;
+  padding:clamp(22px,3.5vw,38px);
+  border:1px solid rgba(255,240,205,.11);
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.017));
+  box-shadow:var(--shadow-soft);
+}
+.panel-surface::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.05),transparent 34%);
+}
+.intro-copy{position:relative;z-index:1;max-width:820px}
+.intro-copy .lead{color:var(--muted);margin:0 0 26px;max-width:72ch}
+.form-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+  margin-top:22px;
+}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full{grid-column:1/-1}
+.field label{font-weight:800;font-size:.92rem;color:var(--gold-hi)}
+.field input{
+  width:100%;
+  padding:15px 16px;
+  color:var(--cream);
+  background:rgba(6,1,3,.34);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:16px;
+  outline:none;
+  transition:.2s ease;
+}
+.field input::placeholder{color:rgba(248,234,217,.38)}
+.field input:focus{
+  border-color:rgba(232,198,118,.78);
+  box-shadow:0 0 0 4px rgba(232,198,118,.10);
+  background:rgba(6,1,3,.46);
+}
+.consent{
+  grid-column:1/-1;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding-top:8px;
+  color:var(--muted);
+  font-size:.91rem;
+  line-height:1.55;
+}
+.consent input{width:17px;height:17px;flex:0 0 auto;margin-top:4px;accent-color:var(--gold)}
+.privacy-note{
+  grid-column:1/-1;
+  margin:0;
+  color:rgba(248,234,217,.48);
+  font-size:.79rem;
+}
+.action-row{display:flex;gap:12px;align-items:center;margin-top:24px;position:relative;z-index:1}
+.primary{
+  min-height:52px;
+  padding:14px 24px;
+  border:1px solid rgba(255,242,204,.44);
+  border-radius:999px;
+  background:linear-gradient(135deg,#f7e4aa,#c18b2d);
+  color:#2b0b05;
+  font-weight:900;
+  box-shadow:0 15px 38px rgba(231,196,122,.17);
+  transition:.18s ease;
+}
+.primary:hover{transform:translateY(-2px);box-shadow:0 20px 48px rgba(231,196,122,.23);filter:brightness(1.04)}
+.primary:focus-visible{outline:3px solid rgba(255,240,200,.38);outline-offset:4px}
+.error{min-height:1.2em;color:#ffd4d4;font-size:.88rem;margin:8px 0 0}
+
+.quiz-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.step{min-width:max-content;color:var(--gold);font-weight:900;font-size:.86rem;letter-spacing:.01em}
+.progress{
+  flex:1;
+  height:7px;
+  border-radius:999px;
+  overflow:hidden;
+  background:rgba(255,255,255,.07);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
+}
+.progress span{
+  display:block;
+  width:0;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--crimson-hi),var(--gold),#fff3ce);
+  box-shadow:0 0 18px rgba(232,198,118,.22);
+  transition:width .28s ease;
+}
+.question-card{max-width:980px;margin:0 auto}
+.question-num{
+  position:relative;z-index:1;
+  color:var(--gold);
+  font-weight:900;
+  font-size:.73rem;
+  text-transform:uppercase;
+  letter-spacing:.24em;
+  margin-bottom:12px;
+}
+.question-title{
+  position:relative;z-index:1;
+  max-width:820px;
+  margin:0 0 26px;
+  font-size:clamp(2.2rem,4.7vw,4.05rem);
+}
+.answers{position:relative;z-index:1;display:grid;gap:13px}
+.answer{
+  position:relative;
+  width:100%;
+  min-height:70px;
+  padding:18px 54px 18px 20px;
+  text-align:left;
+  color:var(--cream);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.023)),
+    linear-gradient(90deg,rgba(125,9,31,.16),transparent 60%);
+  transition:.18s ease;
+}
+.answer:hover{
+  transform:translateY(-2px);
+  border-color:rgba(232,198,118,.54);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.082),rgba(255,255,255,.03)),
+    linear-gradient(90deg,rgba(166,15,43,.22),transparent 62%);
+  box-shadow:0 12px 30px rgba(0,0,0,.18);
+}
+.answer:focus-visible{outline:3px solid rgba(232,198,118,.30);outline-offset:4px}
+.answer::after{
+  content:"→";
+  position:absolute;
+  right:19px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--gold-hi);
+  opacity:.38;
+  transition:.17s ease;
+}
+.answer:hover::after{transform:translate(4px,-50%);opacity:.96}
+
+/* Reveal: starts immediately when the last answer is chosen */
+.reveal-stage{
+  position:relative;
+  min-height:clamp(530px,74vh,770px);
+  overflow:hidden;
+  border:1px solid rgba(255,240,200,.17);
+  border-radius:30px;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at 50% 49%,rgba(255,224,133,.17),transparent 14%),
+    radial-gradient(circle at 50% 50%,rgba(139,10,37,.22),transparent 44%),
+    linear-gradient(145deg,#29070e,#090204 58%,#1e050b);
+  box-shadow:0 30px 90px rgba(0,0,0,.42);
+  isolation:isolate;
+}
+.reveal-stage::before{
+  content:"";
+  position:absolute;
+  inset:-18%;
+  background:
+    conic-gradient(from 0deg at 50% 50%,transparent 0 25%,rgba(231,195,109,.15) 31%,transparent 39% 64%,rgba(169,15,48,.13) 72%,transparent 81%),
+    radial-gradient(circle at 50% 50%,transparent 0 31%,rgba(255,240,204,.08) 32%,transparent 33% 100%);
+  animation:revealOrbit 12s linear infinite;
+}
+.reveal-stage::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 22% 29%,rgba(208,29,62,.12),transparent 14%),
+    radial-gradient(circle at 78% 67%,rgba(230,189,74,.12),transparent 15%),
+    linear-gradient(180deg,transparent 0 53%,rgba(0,0,0,.34) 100%);
+}
+.reveal-ring{
+  position:absolute;
+  width:min(62vw,455px);
+  aspect-ratio:1;
+  border-radius:50%;
+  border:1px solid rgba(232,195,109,.29);
+  box-shadow:0 0 74px rgba(232,195,109,.07),inset 0 0 68px rgba(232,195,109,.04);
+  animation:revealSpin 8.5s linear infinite;
+}
+.reveal-ring.ring-b{
+  width:min(46vw,330px);
+  border-style:dashed;
+  border-color:rgba(247,212,126,.22);
+  animation-direction:reverse;
+  animation-duration:11.5s;
+}
+.reveal-ring.ring-c{
+  width:min(78vw,560px);
+  border-color:rgba(175,22,55,.18);
+  animation-duration:17s;
+}
+.reveal-symbol{
+  position:relative;
+  z-index:4;
+  display:grid;
+  place-items:center;
+  width:106px;
+  height:106px;
+  border-radius:50%;
+  border:1px solid rgba(255,240,200,.43);
+  background:radial-gradient(circle,rgba(255,237,187,.09),rgba(5,1,2,.03));
+  color:var(--gold-hi);
+  font-family:var(--display);
+  font-size:2.55rem;
+  box-shadow:0 0 74px rgba(232,195,109,.12),inset 0 0 30px rgba(255,255,255,.04);
+  animation:revealPulse 1.75s ease-in-out infinite;
+}
+.reveal-word{
+  position:absolute;
+  z-index:4;
+  bottom:27.5%;
+  color:rgba(255,241,210,.92);
+  font-family:var(--display);
+  font-size:clamp(1.25rem,3vw,2rem);
+  letter-spacing:.45em;
+  text-indent:.45em;
+}
+.reveal-caption{
+  position:absolute;
+  z-index:4;
+  bottom:14%;
+  margin:0;
+  color:var(--muted);
+  font-size:.80rem;
+  text-transform:uppercase;
+  letter-spacing:.17em;
+}
+@keyframes revealOrbit{to{transform:rotate(-360deg)}}
+@keyframes revealSpin{to{transform:rotate(360deg)}}
+@keyframes revealPulse{
+  0%,100%{transform:scale(.91);box-shadow:0 0 56px rgba(232,195,109,.07),inset 0 0 30px rgba(255,255,255,.03)}
+  50%{transform:scale(1.055);box-shadow:0 0 98px rgba(232,195,109,.19),inset 0 0 36px rgba(255,255,255,.05)}
+}
+
+/* Result */
+.result-wrap{
+  position:relative;
+  overflow:hidden;
+  min-height:clamp(530px,75vh,760px);
+  border:1px solid rgba(255,240,205,.18);
+  border-radius:30px;
+  box-shadow:0 30px 90px rgba(0,0,0,.40);
+}
+.result-wrap::before{
+  content:"";
+  position:absolute;
+  width:54vw;
+  max-width:540px;
+  aspect-ratio:1;
+  left:50%;
+  top:7%;
+  transform:translateX(-50%);
+  border-radius:50%;
+  animation:resultOrb 5s ease-in-out infinite;
+}
+.result-wrap::after{
+  content:"";
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.10) 46%,rgba(0,0,0,.50));
+}
+.result-wrap.ombres{
+  background:
+    radial-gradient(circle at 50% 24%,rgba(155,63,163,.29),transparent 21%),
+    radial-gradient(circle at 18% 80%,rgba(87,16,87,.33),transparent 23%),
+    linear-gradient(145deg,#240a1a 0%,#090306 58%,#190610 100%);
+}
+.result-wrap.ombres::before{
+  background:radial-gradient(circle,rgba(194,104,201,.36) 0 8%,rgba(102,27,115,.17) 28%,transparent 66%);
+  box-shadow:0 0 120px rgba(193,101,204,.13);
+}
+.result-wrap.lumieres{
+  background:
+    radial-gradient(circle at 50% 23%,rgba(255,232,157,.34),transparent 22%),
+    radial-gradient(circle at 83% 79%,rgba(201,132,28,.28),transparent 24%),
+    linear-gradient(145deg,#65400d 0%,#241105 57%,#090303 100%);
+}
+.result-wrap.lumieres::before{
+  background:radial-gradient(circle,rgba(255,246,204,.76) 0 8%,rgba(255,222,120,.31) 18%,rgba(217,154,37,.10) 35%,transparent 68%);
+  box-shadow:0 0 125px rgba(255,219,122,.17);
+}
+.result-inner{
+  position:relative;
+  z-index:3;
+  min-height:inherit;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:clamp(30px,6vw,76px);
+  text-align:center;
+}
+.result-kicker{
+  margin-bottom:12px;
+  color:var(--gold-hi);
+  font-size:.72rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.27em;
+}
+.result-title{
+  margin:0 0 20px;
+  font-family:var(--display);
+  font-size:clamp(4.25rem,10.3vw,9rem);
+  line-height:.77;
+  color:var(--gold-hi);
+  text-shadow:0 18px 44px rgba(0,0,0,.38);
+}
+.result-wrap.ombres .result-title{color:#f2d7ed;text-shadow:0 0 46px rgba(185,88,178,.15),0 18px 44px rgba(0,0,0,.38)}
+.result-wrap.lumieres .result-title{color:#fff0bc;text-shadow:0 0 48px rgba(255,225,137,.18),0 18px 44px rgba(0,0,0,.38)}
+.result-text{
+  max-width:640px;
+  margin:0;
+  color:#f8eadc;
+  font-size:clamp(1.03rem,1vw + .56rem,1.18rem);
+  line-height:1.84;
+  text-wrap:balance;
+}
+.tattoo-note{
+  margin-top:25px;
+  max-width:640px;
+  padding:14px 20px;
+  border:1px solid rgba(255,240,200,.23);
+  border-radius:18px;
+  color:var(--gold-hi);
+  background:rgba(7,2,4,.36);
+  backdrop-filter:blur(10px);
+  font-weight:800;
+}
+@keyframes resultOrb{
+  0%,100%{opacity:.54;transform:translateX(-50%) scale(.94)}
+  50%{opacity:.96;transform:translateX(-50%) scale(1.05)}
+}
+
+/* Keep book section exactly in its existing composition, only ensure its surrounding container remains responsive. */
+@media (max-width:980px){
+  .brand-nav{left:18px;right:18px}
+  .hero-grid{min-height:650px}
+  .book-section{grid-template-columns:205px minmax(0,1fr)}
+  .store-links{grid-template-columns:1fr;max-width:430px}
+}
+@media (max-width:700px){
+  .site-shell{width:min(100% - 12px,1340px);padding-top:6px}
+  .site-card{border-radius:24px}
+  .site-card::after{border-radius:24px}
+  .brand-strip{height:96px;border-radius:24px 24px 0 0}
+  .brand-strip img{object-position:center 50%;filter:saturate(.76) contrast(1.05) brightness(.64)}
+  .brand-word{font-size:3.15rem}
+  .brand-signature{font-size:.49rem;letter-spacing:.22em;text-indent:.22em;margin-top:8px}
+  .brand-nav{display:none}
+  .brand-corner{font-size:.84rem;top:14px}
+  .brand-corner-left{left:16px}
+  .brand-corner-right{right:16px}
+  .brand-strip::after{bottom:7px;width:62%}
+  .content{padding:16px}
+  .brand-name{font-size:.69rem;padding:7px 10px}
+  h1{font-size:clamp(3.55rem,18.5vw,5.5rem)}
+  .hero-grid{min-height:calc(100vh - 120px);border-radius:23px}
+  .hero-copy{padding:26px 18px}
+  .hero-copy>p{font-size:.98rem}
+  .hero-quote{font-size:.93rem;padding:14px 15px}
+  .panel-surface{padding:20px;border-radius:22px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full,.consent,.privacy-note{grid-column:auto}
+  .action-row .primary{width:100%}
+  .quiz-head{gap:9px}
+  .step{font-size:.75rem}
+  .question-title{font-size:clamp(2.2rem,10.5vw,3.25rem)}
+  .answer{min-height:72px;padding:18px 48px 18px 16px}
+  .reveal-stage{min-height:calc(100vh - 122px);border-radius:23px}
+  .reveal-ring{width:76vw}
+  .reveal-ring.ring-b{width:54vw}
+  .reveal-ring.ring-c{width:90vw}
+  .reveal-symbol{width:84px;height:84px;font-size:2.25rem}
+  .reveal-word{bottom:30%;font-size:1rem;letter-spacing:.31em;text-indent:.31em}
+  .reveal-caption{bottom:15%;font-size:.74rem;letter-spacing:.08em}
+  .result-wrap{min-height:calc(100vh - 122px);border-radius:23px}
+  .result-inner{min-height:calc(100vh - 122px);padding:30px 18px 38px}
+  .result-title{font-size:clamp(4rem,20vw,6.2rem)}
+  .result-text{font-size:1rem;line-height:1.72}
+  .tattoo-note{font-size:.86rem}
+  .book-section{grid-template-columns:1fr;gap:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <div class="site-card">
+      <header class="brand-strip">
+        <img src="./assets/duality-header.jpg" alt="Signature visuelle Duality" width="1679" height="649">
+        <div class="brand-lockup" aria-label="Duality — Yasmine Houb — Le Quiz des Clans">
+          <div class="brand-word">Duality</div>
+          <div class="brand-signature">YAS&nbsp;MINE HOUB <span aria-hidden="true">—</span> LE QUIZ DES CLANS</div>
+        </div>
+        <nav class="brand-nav" aria-label="Navigation du site">
+          <a href="#quizApp">Le quiz</a>
+          <span class="brand-nav-dot" aria-hidden="true"></span>
+          <a href="#bookTitle">Le roman</a>
+        </nav>
+        <div class="brand-corner brand-corner-left" aria-hidden="true">✦</div>
+        <div class="brand-corner brand-corner-right" aria-hidden="true">✦</div>
+      </header>
+
+      <div class="content">
+        <section class="hero-grid" aria-labelledby="pageTitle">
+          <div class="hero-copy">
+            <span class="eyebrow brand-name">Duality — Yasmine Houb — Le Quiz des Clans</span>
+            <h1 id="pageTitle">Quel clan sommeille en toi&nbsp;?</h1>
+            <p>À Ordyte, chaque désir a un prix. Entre Ombres et Lumières, il n’existe pas de bon ou de mauvais choix — seulement une force qui te ressemble davantage.</p>
+            <div class="hero-quote">Réponds instinctivement et découvre le clan qui t’appelle. À la fin, présente ton résultat pour recevoir ton tatouage temporaire.</div>
+          </div>
+
+        </section>
+
+        <main class="wizard" id="quizApp" tabindex="-1">
+          <section class="panel active" id="startPanel" aria-labelledby="startTitle">
+            <div class="panel-surface">
+              <div class="intro-copy">
+                <span class="eyebrow">Avant de commencer</span>
+                <h2 id="startTitle">Entre dans l’univers de Duality</h2>
+                <p class="lead">Indique ton prénom et ton nom pour commencer. Ton adresse e-mail reste facultative, et n’est demandée que si tu souhaites être invité(e) aux prochains événements ou recevoir les actualités.</p>
+              </div>
+
+              <form id="participantForm" novalidate>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="firstName">Prénom <span aria-hidden="true">*</span></label>
+                    <input id="firstName" name="firstName" type="text" autocomplete="given-name" placeholder="Ex. Léa" required aria-required="true">
+                  </div>
+                  <div class="field">
+                    <label for="lastName">Nom <span aria-hidden="true">*</span></label>
+                    <input id="lastName" name="lastName" type="text" autocomplete="family-name" placeholder="Ex. Morel" required aria-required="true">
+                  </div>
+                  <div class="field full">
+                    <label for="email">Adresse e-mail <span style="font-weight:500;color:var(--muted)">(facultatif)</span></label>
+                    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="nom@email.com">
+                  </div>
+                  <label class="consent" for="eventsOptIn">
+                    <input id="eventsOptIn" name="eventsOptIn" type="checkbox">
+                    <span>Je souhaite être informé(e) des prochains événements, sorties ou actualités liés à <em>Duality</em>.</span>
+                  </label>
+                  <p class="privacy-note">Ton e-mail n’est pas nécessaire pour jouer. Il ne sera utilisé pour les invitations et actualités que si tu coches la case ci-dessus.</p>
+                </div>
+                <p class="error" id="formError" role="alert" aria-live="polite"></p>
+                <div class="action-row">
+                  <button class="primary" type="submit">Commencer le quiz</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <section class="panel" id="quizPanel" aria-labelledby="questionTitle">
+            <div class="quiz-head" aria-label="Progression du quiz">
+              <div class="step" id="stepLabel">Question 1 sur 13</div>
+              <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+              <span class="sr-only" id="progressAccessible">0 %</span>
+            </div>
+            <div class="panel-surface question-card">
+              <div class="question-num" id="questionIndex">01</div>
+              <h2 class="question-title" id="questionTitle" aria-live="polite"></h2>
+              <div class="answers" id="answers" aria-label="Choix de réponse"></div>
+            </div>
+          </section>
+
+          <section class="panel" id="revealPanel" aria-live="polite" aria-label="Révélation du clan">
+            <div class="reveal-stage" id="revealStage">
+              <div class="reveal-ring ring-a"></div>
+              <div class="reveal-ring ring-b"></div>
+              <div class="reveal-ring ring-c"></div>
+              <div class="reveal-symbol" aria-hidden="true">✦</div>
+              <div class="reveal-word" id="revealWord">DUALITY</div>
+              <p class="reveal-caption">Ton clan se révèle…</p>
+            </div>
+          </section>
+
+
+          <section class="panel" id="resultPanel" aria-labelledby="resultTitle">
+            <div class="result-wrap" id="resultCard">
+              <div class="result-inner">
+                <div class="result-kicker">Révélation du clan</div>
+                <h2 class="result-title" id="resultTitle"></h2>
+                <p class="result-text" id="resultText"></p>
+                <div class="tattoo-note">Présente cet écran pour recevoir ton tatouage temporaire.</div>
+              </div>
+            </div>
+
+            <section class="book-section panel-surface" aria-labelledby="bookTitle">
+              <div class="book-visual">
+                <div class="book-cover-small">
+                  <img src="./assets/duality-cover.jpg" alt="Couverture de Duality — Tome 1" width="1080" height="1620" loading="lazy">
+                </div>
+              </div>
+              <div class="book-copy">
+                <span class="eyebrow">Découvrir le roman</span>
+                <h2 id="bookTitle">Duality — Tome 1</h2>
+                <p>À Ordyte, la quête des désirs a toujours un prix. Seyrsnis Wilanza, princesse du royaume des Ombres, cherche une liberté que son rang lui refuse. Deen Spriar, soldat des Lumières, poursuit une vengeance mûrie pendant cinq ans. Une soirée suffit à bouleverser leurs certitudes : entre faux-semblants, magie et sentiments interdits, leurs chemins se retrouvent liés.</p>
+                <div class="store-links" aria-label="Acheter ou découvrir le livre">
+                  <a class="store-link" href="https://www.amazon.fr/Duality-1-Yasmine-Houb/dp/2810620326" target="_blank" rel="noopener noreferrer">Amazon</a>
+                  <a class="store-link" href="https://www.fnac.com/a21951564/Yasmine-Houb-Duality" target="_blank" rel="noopener noreferrer">Fnac</a>
+                  <a class="store-link" href="https://play.google.com/store/books/details?id=v6J3EQAAQBAJ&rdid=book-v6J3EQAAQBAJ&rdot=1&source=gbs_atb&pcampaignid=books_booksearch_atb" target="_blank" rel="noopener noreferrer">Google Play</a>
+                </div>
+              </div>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Colle ici l’URL /exec de ton Google Apps Script Web App.
+    // Le site public n’affiche jamais cette information.
+    const GOOGLE_SHEETS_WEBAPP_URL = window.DUALITY_CONFIG?.GOOGLE_SHEETS_WEBAPP_URL || '';
+
+    const questions = [
+      {
+        question: 'Tu préfères…',
+        options: [
+          { text: 'La nuit', clan: 'ombres' },
+          { text: 'Le jour', clan: 'lumieres' }
+        ]
+      },
+      {
+        question: 'Tu te sens mieux dans…',
+        options: [
+          { text: 'Un endroit calme et sombre', clan: 'ombres' },
+          { text: 'Un lieu lumineux et ouvert', clan: 'lumieres' }
+        ]
+      },
+      {
+        question: 'Tu suis surtout…',
+        options: [
+          { text: 'La raison', clan: 'lumieres' },
+          { text: 'L’instinct', clan: 'ombres' }
+        ]
+      },
+      {
+        question: 'Tu préfères…',
+        options: [
+          { text: 'Garder une part de mystère', clan: 'ombres' },
+          { text: 'Dire clairement ce que tu penses', clan: 'lumieres' }
+        ]
+      },
+      {
+        question: 'Ton énergie ressemble plus à…',
+        options: [
+          { text: 'Une ombre qui observe avant d’agir', clan: 'ombres' },
+          { text: 'Une flamme qui donne l’élan', clan: 'lumieres' }
+        ]
+      },
+      {
+        question: 'Face à un problème, tu…',
+        options: [
+          { text: 'Agis tout de suite', clan: 'lumieres' },
+          { text: 'Observes d’abord', clan: 'ombres' }
+        ]
+      },
+      {
+        question: 'Tu serais plus attiré(e) par…',
+        options: [
+          { text: 'La lune et ce qu’elle ne révèle qu’à moitié', clan: 'ombres' },
+          { text: 'Le soleil et tout ce qu’il met en lumière', clan: 'lumieres' }
+        ]
+      },
+      {
+        question: 'Tu préfères…',
+        options: [
+          { text: 'Protéger ce qui compte', clan: 'lumieres' },
+          { text: 'Découvrir ce qui est caché', clan: 'ombres' }
+        ]
+      },
+      {
+        question: 'Dans un groupe, tu es plutôt…',
+        options: [
+          { text: 'Celui ou celle qui analyse', clan: 'ombres' },
+          { text: 'Celui ou celle qui guide', clan: 'lumieres' }
+        ]
+      },
+      {
+        question: 'À Ordyte, quel moment te ressemble le plus ?',
+        options: [
+          { text: 'Le premier rayon du jour, quand tout peut recommencer', clan: 'lumieres' },
+          { text: 'La nuit profonde, quand les vérités remontent à la surface', clan: 'ombres' }
+        ]
+      },
+      {
+        question: 'Si ton plus grand désir exigeait un prix, tu…',
+        options: [
+          { text: 'L’accepterais sans hésiter', clan: 'ombres' },
+          { text: 'Chercherais une autre voie', clan: 'lumieres' }
+        ]
+      },
+      {
+        question: 'Dans un monde de faux-semblants, ta force est plutôt…',
+        options: [
+          { text: 'Lire ce que les autres cachent', clan: 'ombres' },
+          { text: 'Montrer clairement qui tu es', clan: 'lumieres' }
+        ]
+      },
+      {
+        question: 'Au fond, qu’est-ce qui te guide le plus ?',
+        options: [
+          { text: 'Comprendre ce qui se cache derrière les apparences', clan: 'ombres' },
+          { text: 'Avancer et faire la différence autour de toi', clan: 'lumieres' }
+        ]
+      }
+    ];
+
+    const startPanel = document.getElementById('startPanel');
+    const quizPanel = document.getElementById('quizPanel');
+    const revealPanel = document.getElementById('revealPanel');
+    const resultPanel = document.getElementById('resultPanel');
+    const participantForm = document.getElementById('participantForm');
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const emailInput = document.getElementById('email');
+    const eventsOptIn = document.getElementById('eventsOptIn');
+    const formError = document.getElementById('formError');
+    const quizApp = document.getElementById('quizApp');
+    const questionIndex = document.getElementById('questionIndex');
+    const questionTitle = document.getElementById('questionTitle');
+    const answersWrap = document.getElementById('answers');
+    const progressBar = document.getElementById('progressBar');
+    const progressAccessible = document.getElementById('progressAccessible');
+    const stepLabel = document.getElementById('stepLabel');
+    const resultCard = document.getElementById('resultCard');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultText = document.getElementById('resultText');
+
+    let current = 0;
+    let score = { lumieres: 0, ombres: 0 };
+    let answers = [];
+    let finalClan = null;
+    let displayOptions = [];
+    let lastFirstClan = null;
+    let participant = null;
+    let submissionSent = false;
+
+    function showPanel(panel, options = {}) {
+      [startPanel, quizPanel, revealPanel, resultPanel].forEach(node => node.classList.remove('active'));
+      panel.classList.add('active');
+      if (options.focus !== false) quizApp.focus({ preventScroll: true });
+      if (options.scroll !== false) {
+        window.scrollTo({
+          top: Math.max(0, quizApp.getBoundingClientRect().top + window.scrollY - 18),
+          behavior: options.instant ? 'auto' : 'smooth'
+        });
+      }
+    }
+
+    function shuffleOptions(options) {
+      const copy = options.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      // Évite une longue série où le même clan est toujours présenté en premier.
+      if (copy[0].clan === lastFirstClan) copy.reverse();
+      lastFirstClan = copy[0].clan;
+      return copy;
+    }
+
+    function renderQuestion() {
+      const item = questions[current];
+      displayOptions = shuffleOptions(item.options);
+      questionIndex.textContent = String(current + 1).padStart(2, '0');
+      questionTitle.textContent = item.question;
+      stepLabel.textContent = `Question ${current + 1} sur ${questions.length}`;
+      const pct = Math.round((current / questions.length) * 100);
+      progressBar.style.width = `${pct}%`;
+      progressAccessible.textContent = `${pct} %`;
+      answersWrap.innerHTML = '';
+
+      displayOptions.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'answer';
+        button.type = 'button';
+        button.textContent = option.text;
+        button.addEventListener('click', () => selectAnswer(option));
+        answersWrap.appendChild(button);
+      });
+
+      requestAnimationFrame(() => questionTitle.focus?.());
+    }
+
+    function selectAnswer(option) {
+      const item = questions[current];
+      score[option.clan] += 1;
+      answers.push({
+        question: item.question,
+        answer: option.text,
+        clan: option.clan
+      });
+      current += 1;
+      if (current < questions.length) {
+        renderQuestion();
+      } else {
+        progressBar.style.width = '100%';
+        progressAccessible.textContent = '100 %';
+        playReveal();
+      }
+    }
+
+
+    let revealStarted = false;
+
+    function playReveal() {
+      if (revealStarted) return;
+      revealStarted = true;
+      revealPanel.classList.add('active');
+      quizApp.focus({ preventScroll: true });
+
+      // Start the visual immediately: no smooth-scroll and no panel transition delay.
+      const revealWord = document.getElementById('revealWord');
+      revealWord.textContent = 'DUALITY';
+
+      window.setTimeout(() => {
+        revealResult();
+      }, 2100);
+    }
+
+    function revealResult() {
+      // En cas d’égalité, le clan de la dernière réponse tranche le résultat.
+      if (score.lumieres === score.ombres) {
+        finalClan = answers[answers.length - 1]?.clan || 'lumieres';
+      } else {
+        finalClan = score.lumieres > score.ombres ? 'lumieres' : 'ombres';
+      }
+
+      const isLumieres = finalClan === 'lumieres';
+      resultCard.classList.remove('ombres', 'lumieres');
+      resultCard.classList.add(finalClan);
+      resultTitle.textContent = isLumieres ? 'Les Lumières' : 'Les Ombres';
+      resultText.textContent = isLumieres
+        ? 'Tu portes une force qui protège, révèle et avance malgré le chaos. À Ordyte, tu choisis d’éclairer ce qui compte vraiment.'
+        : 'Tu avances avec instinct, profondeur et lucidité. Dans un monde de faux-semblants, tu sais reconnaître ce qui se cache derrière les apparences.';
+      showPanel(resultPanel);
+      saveParticipation();
+    }
+
+    function normalize(value) {
+      return String(value || '').trim();
+    }
+
+    function validEmail(value) {
+      return !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function validateParticipant() {
+      const firstName = normalize(firstNameInput.value);
+      const lastName = normalize(lastNameInput.value);
+      const email = normalize(emailInput.value);
+
+      firstNameInput.setAttribute('aria-invalid', firstName ? 'false' : 'true');
+      lastNameInput.setAttribute('aria-invalid', lastName ? 'false' : 'true');
+      emailInput.setAttribute('aria-invalid', email && !validEmail(email) ? 'true' : 'false');
+
+      if (!firstName || !lastName) {
+        formError.textContent = 'Prénom et nom sont nécessaires pour commencer le quiz.';
+        return false;
+      }
+      if (!validEmail(email)) {
+        formError.textContent = 'Vérifie l’adresse e-mail ou laisse ce champ vide.';
+        emailInput.focus();
+        return false;
+      }
+      if (eventsOptIn.checked && !email) {
+        formError.textContent = 'Pour être invité(e) aux prochains événements, renseigne ton adresse e-mail.';
+        emailInput.focus();
+        return false;
+      }
+      formError.textContent = '';
+      return true;
+    }
+
+    async function saveParticipation() {
+      if (submissionSent) return;
+      submissionSent = true;
+
+      const payload = {
+        timestamp: new Date().toISOString(),
+        firstName: normalize(firstNameInput.value),
+        lastName: normalize(lastNameInput.value),
+        email: normalize(emailInput.value),
+        wantsEvents: eventsOptIn.checked,
+        clan: finalClan,
+        lumieresScore: score.lumieres,
+        ombresScore: score.ombres,
+        answers: answers
+      };
+
+      if (!GOOGLE_SHEETS_WEBAPP_URL || GOOGLE_SHEETS_WEBAPP_URL.includes('PASTE_YOUR_')) {
+        console.info('Google Sheets n’est pas encore configuré. Le quiz reste parfaitement fonctionnel.');
+        return;
+      }
+
+      try {
+        // text/plain évite une requête préliminaire CORS sur un Apps Script Web App.
+        await fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload),
+          keepalive: true
+        });
+      } catch (error) {
+        // Ne jamais perturber l’expérience visiteur si le réseau est indisponible.
+        console.warn('Envoi Google Sheets non confirmé.', error);
+      }
+    }
+
+    participantForm.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!validateParticipant()) return;
+
+      participant = {
+        firstName: normalize(firstNameInput.value),
+        lastName: normalize(lastNameInput.value),
+        email: normalize(emailInput.value),
+        wantsEvents: eventsOptIn.checked
+      };
+
+      current = 0;
+      score = { lumieres: 0, ombres: 0 };
+      answers = [];
+      finalClan = null;
+      lastFirstClan = null;
+      submissionSent = false;
+      revealStarted = false;
+      renderQuestion();
+      document.body.classList.remove('result-mode');
+      document.body.classList.add('quiz-mode');
+      showPanel(quizPanel);
+    });
+  </script>
+</body>
+</html>
