@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <title>Duality — Administration</title>
   <script src="./config.js"></script>
@@ -10,139 +10,463 @@
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>
   <style>
-    :root{--bg:#090103;--bg2:#160409;--panel:#1d060c;--panel2:#270810;--gold:#e8c676;--gold2:#fff0c8;--cream:#f9ecdf;--muted:#c4ac99;--line:rgba(255,235,191,.14);--line2:rgba(255,235,191,.26);--danger:#ffc9c9;--green:#87dfb2;--display:Georgia,"Times New Roman",serif;--body:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--shadow:0 32px 100px rgba(0,0,0,.46)}
-    *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% -12%,rgba(155,15,42,.25),transparent 34%),linear-gradient(180deg,#120205,#070102);color:var(--cream);font-family:var(--body)}
-    body{overflow-x:hidden}
-    .shell{width:min(1460px,calc(100% - 22px));margin:0 auto;padding:10px 0 28px}.app{background:linear-gradient(180deg,rgba(49,7,14,.78),rgba(10,2,4,.97));border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);overflow:hidden}
-    .header{height:142px;position:relative;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid var(--line)}
-    .header-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 50%;filter:brightness(.46) saturate(.70) contrast(1.08);transform:scale(1.02)}
-    .header::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,1,3,.82),rgba(7,1,3,.26) 35%,rgba(7,1,3,.26) 65%,rgba(7,1,3,.82)),linear-gradient(180deg,rgba(7,1,3,.12),rgba(7,1,3,.50))}
-    .brand{position:relative;z-index:2;text-align:center}.brand-word{font:600 clamp(3.7rem,6vw,5.6rem)/.74 var(--display);letter-spacing:-.04em;color:var(--gold2);text-shadow:0 10px 35px rgba(0,0,0,.5)}.brand-sub{margin-top:11px;font-size:.57rem;font-weight:900;letter-spacing:.34em;color:rgba(255,241,205,.90)}
-    .header-rule{position:absolute;bottom:9px;left:50%;z-index:3;width:min(440px,48%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-    main{padding:30px}.login{min-height:640px;display:grid;place-items:center}.login-box{width:min(510px,100%);padding:37px;border:1px solid var(--line);border-radius:25px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));box-shadow:0 20px 60px rgba(0,0,0,.25)}
-    .kicker{font-size:.69rem;letter-spacing:.22em;text-transform:uppercase;font-weight:900;color:var(--gold)}h1,h2{font-family:var(--display);color:var(--gold2);line-height:.88;margin:10px 0 14px}h1{font-size:3.9rem}h2{font-size:2.65rem}p{line-height:1.74}.muted{color:var(--muted)}
-    label{display:block;margin:17px 0 7px;font-size:.84rem;font-weight:800;color:var(--gold2)}input,select{width:100%;min-height:52px;padding:14px 15px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(5,1,2,.36);color:var(--cream);outline:none}input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(232,198,118,.10)}
-    button{min-height:46px;padding:12px 17px;border-radius:999px;border:1px solid rgba(255,242,204,.40);background:linear-gradient(135deg,#f7e4aa,#c18b2d);color:#2b0b05;font-weight:900;cursor:pointer;transition:.16s ease}button:hover{transform:translateY(-1px)}button.ghost{background:rgba(255,255,255,.045);color:var(--cream);border-color:var(--line)}button.danger{background:transparent;color:#ffd8d8;border-color:rgba(255,170,170,.24)}button:disabled{opacity:.5;cursor:not-allowed;transform:none}
-    .error{min-height:1.2em;color:var(--danger);font-size:.88rem}.note{padding:14px 15px;border:1px solid rgba(232,198,118,.16);border-radius:15px;background:rgba(232,198,118,.035);color:var(--muted);font-size:.80rem}
-    .dashboard{display:none}.dashboard.active{display:block}.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;flex-wrap:wrap}.right{display:flex;gap:9px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:24px 0 18px}.stat{position:relative;overflow:hidden;padding:20px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015))}.stat::after{content:"";position:absolute;right:-30px;bottom:-35px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(232,198,118,.15),transparent 68%)}.stat small{display:block;color:var(--muted)}.stat strong{display:block;margin-top:5px;font:600 2.4rem var(--display);color:var(--gold2)}
-    .toolbar{display:grid;grid-template-columns:1.35fr .6fr auto 1fr;gap:10px;align-items:center;margin:14px 0}.status{text-align:right;color:var(--muted);font-size:.83rem}.export-note{margin:6px 0 13px;color:var(--muted);font-size:.78rem}
-    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.018)}table{width:100%;min-width:1070px;border-collapse:collapse}th,td{padding:14px 12px;border-bottom:1px solid rgba(255,255,255,.065);text-align:left;vertical-align:top;font-size:.83rem}th{position:sticky;top:0;background:#1a050a;color:var(--gold2);font-size:.69rem;letter-spacing:.10em;text-transform:uppercase}td{color:#f0dfd0}
-    .tag{display:inline-flex;align-items:center;justify-content:center;padding:5px 9px;border-radius:999px;border:1px solid var(--line);font-size:.70rem;font-weight:900}.tag.lumieres{color:#2a1605;background:#f2dca5}.tag.ombres{color:#f2d7ec;background:#4b173f}.tag.yes{color:#143c29;background:#a7e8c5}.tag.no{color:var(--muted);background:rgba(255,255,255,.035)}
-    .linkbtn{background:transparent;border:0;color:var(--gold);padding:0;font-weight:900;min-height:0}.empty{text-align:center;padding:50px;color:var(--muted)}
-    .modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:16px;background:rgba(0,0,0,.76);backdrop-filter:blur(10px)}.modal.open{display:grid}.modal-card{width:min(810px,100%);max-height:min(89vh,820px);overflow:auto;padding:25px;border:1px solid var(--line2);border-radius:25px;background:#16050a;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.answers-list{display:grid;gap:10px;margin-top:18px}.answer-item{padding:14px 15px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.025)}.answer-item small{display:block;margin-bottom:4px;color:var(--gold);font-weight:900}
-    @media(max-width:980px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar{grid-template-columns:1fr 1fr}.status{text-align:left}}
-    @media(max-width:620px){.shell{width:min(100% - 8px,1460px);padding-top:4px}.app{border-radius:24px}.header{height:102px}.brand-word{font-size:3.25rem}.brand-sub{font-size:.44rem;letter-spacing:.20em;margin-top:9px}.header-rule{bottom:7px;width:62%}main{padding:16px}.login{min-height:600px}.login-box{padding:23px}.stats{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr}.status{font-size:.78rem}.right{width:100%}.right button{flex:1}.stat{padding:16px}.stat strong{font-size:1.9rem}.modal-card{padding:20px}}
+    :root{
+      --bg:#070103;--bg2:#120307;--panel:#18050a;--panel2:#230912;--panel3:#2b0b16;
+      --gold:#e8c676;--gold2:#fff0c8;--cream:#f8ecdf;--muted:#baa495;--line:rgba(255,234,190,.12);
+      --line2:rgba(255,234,190,.24);--green:#8ee0b5;--red:#ffbcbc;--blue:#b5d8ff;
+      --display:Georgia,"Times New Roman",serif;--body:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --shadow:0 28px 90px rgba(0,0,0,.46);--radius:24px
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:
+      radial-gradient(circle at 50% -18%,rgba(165,26,55,.30),transparent 34%),
+      radial-gradient(circle at 100% 20%,rgba(107,17,40,.13),transparent 28%),
+      linear-gradient(180deg,#100205,#050102 70%);color:var(--cream);font-family:var(--body)}
+    button,input,select{font:inherit}button{cursor:pointer}
+    .shell{width:min(1560px,calc(100% - 24px));margin:12px auto 30px}.app{overflow:hidden;border:1px solid var(--line);border-radius:32px;background:linear-gradient(180deg,rgba(40,7,14,.92),rgba(7,1,3,.98));box-shadow:var(--shadow)}
+    .header{position:relative;min-height:152px;display:flex;align-items:center;justify-content:space-between;padding:25px 34px;overflow:hidden;border-bottom:1px solid var(--line)}
+    .header-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 48%;filter:brightness(.32) saturate(.72) contrast(1.12);transform:scale(1.03)}
+    .header::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,1,3,.90),rgba(6,1,3,.36) 45%,rgba(6,1,3,.86))}
+    .brand,.header-actions{position:relative;z-index:2}.brand-word{font:600 clamp(3.5rem,7vw,6.4rem)/.78 var(--display);letter-spacing:-.055em;color:var(--gold2);text-shadow:0 12px 38px rgba(0,0,0,.46)}
+    .brand-sub{margin-top:12px;font-size:.60rem;font-weight:900;letter-spacing:.30em;color:rgba(255,241,205,.88)}
+    .header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}.status-pill{display:inline-flex;gap:8px;align-items:center;padding:10px 13px;border:1px solid var(--line2);border-radius:999px;background:rgba(0,0,0,.22);font-size:.74rem;font-weight:900;color:var(--muted)}.dot{width:8px;height:8px;border-radius:50%;background:#8f7373;box-shadow:0 0 0 3px rgba(143,115,115,.12)}.status-pill.online .dot{background:var(--green);box-shadow:0 0 0 3px rgba(142,224,181,.14)}.status-pill.busy .dot{background:var(--gold);box-shadow:0 0 0 3px rgba(232,198,118,.12)}
+    .btn{border:1px solid rgba(255,242,204,.38);min-height:44px;padding:11px 15px;border-radius:999px;background:linear-gradient(135deg,#f7e4aa,#c18b2d);color:#2b0b05;font-weight:900;transition:.16s}.btn:hover{transform:translateY(-1px)}.btn.ghost{background:rgba(255,255,255,.05);color:var(--cream);border-color:var(--line2)}.btn.danger{background:transparent;color:#ffd8d8;border-color:rgba(255,170,170,.24)}.btn.small{min-height:38px;padding:8px 12px;font-size:.78rem}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+    main{padding:30px}.view.hidden{display:none!important}
+    .login{min-height:690px;display:grid;place-items:center}.login-card{width:min(620px,100%);padding:40px;border:1px solid var(--line2);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.052),rgba(255,255,255,.018));box-shadow:0 22px 70px rgba(0,0,0,.25)}
+    .eyebrow{font-size:.70rem;letter-spacing:.22em;text-transform:uppercase;font-weight:900;color:var(--gold)}h1,h2,h3{font-family:var(--display);color:var(--gold2);line-height:.95;margin:10px 0 14px}h1{font-size:4.2rem}h2{font-size:2.65rem}h3{font-size:1.65rem}p{line-height:1.7}.muted{color:var(--muted)}
+    label{display:block;margin:18px 0 7px;color:var(--gold2);font-size:.83rem;font-weight:850}input,select{width:100%;min-height:52px;border-radius:14px;border:1px solid rgba(255,255,255,.13);background:rgba(5,1,2,.42);color:var(--cream);outline:none;padding:14px 15px}input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(232,198,118,.10)}
+    .login-submit{margin-top:22px;display:flex;gap:10px;align-items:center}.login-submit .btn{flex:1}.login-state{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:.79rem;color:var(--muted);min-height:22px}.inline-error{min-height:1.25em;margin:8px 0 0;color:var(--red);font-size:.86rem}.tech-note{margin-top:22px;padding:14px 15px;border:1px solid rgba(232,198,118,.16);border-radius:16px;background:rgba(232,198,118,.035);font-size:.78rem;color:var(--muted)}
+    .dashboard-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;flex-wrap:wrap}.dashboard-actions{display:flex;gap:9px;flex-wrap:wrap}.dashboard-meta{color:var(--muted);font-size:.80rem}.dashboard-meta a{color:var(--gold);text-decoration:none}.dashboard-meta a:hover{text-decoration:underline}
+    .stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:25px 0}.stat{position:relative;overflow:hidden;padding:18px 19px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.014))}.stat::after{content:"";position:absolute;width:110px;height:110px;right:-35px;bottom:-42px;border-radius:50%;background:radial-gradient(circle,rgba(232,198,118,.14),transparent 68%)}.stat small{display:block;color:var(--muted);font-size:.73rem}.stat strong{display:block;margin-top:5px;font:600 2.25rem var(--display);color:var(--gold2)}.stat .mini{font-family:var(--body);font-size:.76rem;color:var(--muted);margin-top:3px}
+    .grid-main{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.45fr);gap:14px}.panel{border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.037),rgba(255,255,255,.012));overflow:hidden}.panel-pad{padding:20px}.panel-title{display:flex;justify-content:space-between;align-items:center;gap:12px}.panel-title h3{margin:0}.toolbar{display:grid;grid-template-columns:minmax(220px,1.8fr) .8fr .8fr auto;gap:10px;margin-top:14px}.summary-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.filter-chip{padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.035);border:1px solid var(--line);font-size:.73rem;color:var(--muted)}
+    .table-wrap{overflow:auto;max-height:610px;border-top:1px solid var(--line)}table{width:100%;border-collapse:collapse;min-width:1180px}th,td{padding:13px 12px;border-bottom:1px solid rgba(255,255,255,.055);text-align:left;vertical-align:top;font-size:.80rem;max-width:330px}th{position:sticky;top:0;z-index:3;background:#17050a;color:var(--gold2);font-size:.66rem;text-transform:uppercase;letter-spacing:.10em;white-space:nowrap}td{color:#f1dfd1}tr:hover td{background:rgba(232,198,118,.025)}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){position:sticky;left:0;z-index:2;background:#130409}th:nth-child(2),td:nth-child(2){left:0}th:first-child,td:first-child{left:auto}.cell-wrap{max-width:330px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tag{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 9px;border-radius:999px;border:1px solid var(--line);font-size:.68rem;font-weight:900;white-space:nowrap}.tag.lumieres{color:#2a1605;background:#f2dca5}.tag.ombres{color:#f2d7ec;background:#4b173f}.tag.yes{color:#143c29;background:#a7e8c5}.tag.no{color:var(--muted);background:rgba(255,255,255,.035)}.tag.neutral{color:var(--blue);background:rgba(103,165,235,.08);border-color:rgba(103,165,235,.18)}.linkbtn{border:0;background:transparent;color:var(--gold);padding:0;font-weight:900;min-height:0}.empty{padding:54px;text-align:center;color:var(--muted)}
+    .side-stack{display:grid;gap:14px}.bar-list{display:grid;gap:12px;margin-top:14px}.bar-row{display:grid;grid-template-columns:92px 1fr 44px;gap:10px;align-items:center;font-size:.76rem}.bar-track{height:9px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}.bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#a77226,#f4da99)}.bar-fill.dark{background:linear-gradient(90deg,#4b173f,#a05286)}.activity-list{display:grid;gap:9px;margin-top:13px}.activity{padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.022)}.activity strong{display:block;font-size:.78rem}.activity span{display:block;margin-top:4px;color:var(--muted);font-size:.72rem}
+    .bottom-bar{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;padding:14px 18px;border-top:1px solid var(--line)}.pagination{display:flex;gap:8px;align-items:center}.page-info{font-size:.75rem;color:var(--muted);min-width:130px;text-align:center}.source-note{font-size:.73rem;color:var(--muted)}
+    .modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:18px;background:rgba(0,0,0,.78);backdrop-filter:blur(12px)}.modal.open{display:grid}.modal-card{width:min(1100px,100%);max-height:92vh;overflow:auto;border:1px solid var(--line2);border-radius:28px;background:#130409;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:24px;border-bottom:1px solid var(--line)}.modal-body{padding:22px}.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.detail-item{padding:13px 14px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.023)}.detail-item small{display:block;color:var(--gold);font-weight:900;font-size:.67rem;text-transform:uppercase;letter-spacing:.08em}.detail-item div{margin-top:5px;word-break:break-word}.answers-grid{display:grid;gap:10px;margin-top:17px}.answer{padding:14px 15px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.022)}.answer small{display:block;color:var(--gold);font-weight:900;margin-bottom:4px}.answer strong{font-size:.86rem}.drawer-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+    .toast{position:fixed;right:18px;bottom:18px;z-index:80;min-width:280px;max-width:420px;padding:14px 16px;border:1px solid var(--line2);border-radius:16px;background:#1a060c;box-shadow:var(--shadow);display:none}.toast.show{display:block}.toast strong{display:block}.toast p{margin:4px 0 0;color:var(--muted);font-size:.78rem;line-height:1.45}
+    @media(max-width:1180px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-main{grid-template-columns:1fr}}
+    @media(max-width:820px){.header{padding:22px 20px}.header-actions{display:none}.toolbar{grid-template-columns:1fr 1fr}.dashboard-actions{width:100%}.dashboard-actions .btn{flex:1}.detail-grid{grid-template-columns:1fr}}
+    @media(max-width:620px){.shell{width:calc(100% - 8px);margin:4px auto 14px}.app{border-radius:24px}.header{min-height:108px}.brand-word{font-size:3.25rem}.brand-sub{font-size:.44rem;letter-spacing:.18em;margin-top:9px}main{padding:16px}.login{min-height:600px}.login-card{padding:23px}.stats{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr}.stat{padding:15px}.stat strong{font-size:1.85rem}.bottom-bar{align-items:flex-start}.modal-head{padding:18px}.modal-body{padding:18px}}
   </style>
 </head>
 <body>
-<div class="shell"><section class="app">
+<div class="shell">
+<section class="app">
   <header class="header">
     <img class="header-bg" src="./duality-header.jpg" alt="">
-    <div class="brand"><div class="brand-word">Duality</div><div class="brand-sub">YASMINE HOUB — LE QUIZ DES CLANS</div></div>
-    <div class="header-rule" aria-hidden="true"></div>
+    <div class="brand">
+      <div class="brand-word">Duality</div>
+      <div class="brand-sub">YASMINE HOUB — LE QUIZ DES CLANS</div>
+    </div>
+    <div class="header-actions">
+      <div class="status-pill" id="serverPill"><span class="dot"></span><span id="serverText">Serveur en attente</span></div>
+    </div>
   </header>
+
   <main>
-    <section class="login" id="loginView">
-      <div class="login-box">
-        <div class="kicker">Espace privé</div>
+    <section id="loginView" class="view login">
+      <div class="login-card">
+        <div class="eyebrow">Espace privé</div>
         <h1>Administration</h1>
-        <p class="muted">Consulte toutes les participations au quiz, les clans, les réponses détaillées et les inscriptions aux prochains événements.</p>
-        <form id="loginForm">
+        <p class="muted">Pilote les participations Duality depuis un tableau de bord complet : toutes les colonnes du Google Sheet, les réponses du quiz, les consentements et les exports.</p>
+        <form id="loginForm" autocomplete="off">
           <label for="username">Identifiant</label>
           <input id="username" value="admin" autocomplete="username" required>
           <label for="password">Mot de passe</label>
           <input id="password" type="password" autocomplete="current-password" required>
-          <div style="margin-top:21px"><button type="submit">Accéder au tableau de bord</button></div>
-          <p class="error" id="loginError"></p>
+          <div class="login-submit"><button class="btn" id="loginBtn" type="submit">Accéder au tableau de bord</button></div>
+          <div class="login-state"><span class="dot"></span><span id="loginState">Vérification prête.</span></div>
+          <p class="inline-error" id="loginError"></p>
         </form>
-        <p class="note">Les données restent dans Google Sheets. L'authentification est vérifiée par le Web App Google Apps Script.</p>
+        <div class="tech-note"><strong>Connexion sécurisée.</strong> L'identifiant et le mot de passe sont vérifiés par le Web App Google Apps Script. Cette page ne stocke pas le mot de passe.</div>
       </div>
     </section>
 
-    <section class="dashboard" id="dashboard">
-      <div class="top">
-        <div><div class="kicker">Espace administrateur</div><h2>Participations Duality</h2><p class="muted">Mise à jour : <span id="updatedAt">—</span></p></div>
-        <div class="right">
-          <button class="ghost" id="refreshBtn">Actualiser</button>
-          <button class="ghost" id="excelBtn">Tout exporter en Excel</button>
-          <button class="ghost" id="pdfBtn">Tout exporter en PDF</button>
-          <button class="danger" id="logoutBtn">Déconnexion</button>
+    <section id="dashboardView" class="view hidden">
+      <div class="dashboard-head">
+        <div>
+          <div class="eyebrow">Espace administrateur</div>
+          <h2>Participations Duality</h2>
+          <div class="dashboard-meta">Dernière synchronisation : <span id="updatedAt">—</span> · <a href="https://docs.google.com/spreadsheets/d/1xJiaC4j6oP-csoAIPTcdHRt_2vPcVvxZzddzGjRUkF0/edit?gid=146725855#gid=146725855" target="_blank" rel="noopener noreferrer">Ouvrir le Google Sheet ↗</a></div>
+        </div>
+        <div class="dashboard-actions">
+          <button class="btn ghost small" id="refreshBtn">Actualiser</button>
+          <button class="btn ghost small" id="excelBtn">Excel — toute la base</button>
+          <button class="btn ghost small" id="csvBtn">CSV — toute la base</button>
+          <button class="btn ghost small" id="pdfBtn">PDF — toute la base</button>
+          <button class="btn danger small" id="logoutBtn">Déconnexion</button>
         </div>
       </div>
 
       <div class="stats">
-        <div class="stat"><small>Participations</small><strong id="totalStat">0</strong></div>
-        <div class="stat"><small>Ombres</small><strong id="ombresStat">0</strong></div>
-        <div class="stat"><small>Lumières</small><strong id="lumieresStat">0</strong></div>
-        <div class="stat"><small>Invitations demandées</small><strong id="optinStat">0</strong></div>
+        <div class="stat"><small>Participations</small><strong id="totalStat">0</strong><div class="mini" id="totalMini">—</div></div>
+        <div class="stat"><small>Ombres</small><strong id="ombresStat">0</strong><div class="mini" id="ombresMini">—</div></div>
+        <div class="stat"><small>Lumières</small><strong id="lumieresStat">0</strong><div class="mini" id="lumieresMini">—</div></div>
+        <div class="stat"><small>Actualités / événements</small><strong id="optinStat">0</strong><div class="mini" id="optinMini">—</div></div>
+        <div class="stat"><small>Avec e-mail</small><strong id="emailStat">0</strong><div class="mini" id="emailMini">—</div></div>
+        <div class="stat"><small>Aujourd'hui</small><strong id="todayStat">0</strong><div class="mini" id="todayMini">—</div></div>
       </div>
 
-      <div class="toolbar">
-        <input id="search" placeholder="Rechercher prénom, nom ou e-mail…">
-        <select id="clanFilter"><option value="">Tous les clans</option><option value="ombres">Ombres</option><option value="lumieres">Lumières</option></select>
-        <button class="ghost" id="clearBtn">Réinitialiser</button>
-        <div class="status" id="status" aria-live="polite">—</div>
-      </div>
-      <div class="export-note">Les boutons « Tout exporter » exportent toute la base, même les participants qui n'ont pas coché les invitations.</div>
+      <div class="grid-main">
+        <section class="panel">
+          <div class="panel-pad">
+            <div class="panel-title"><h3>Toutes les données du Sheet</h3><span class="filter-chip" id="rowCountChip">0 ligne</span></div>
+            <div class="toolbar">
+              <input id="search" placeholder="Rechercher dans toutes les colonnes…">
+              <select id="clanFilter"><option value="">Tous les clans</option><option value="ombres">Ombres</option><option value="lumieres">Lumières</option></select>
+              <select id="consentFilter"><option value="">Tous les consentements</option><option value="yes">Oui</option><option value="no">Non</option></select>
+              <button class="btn ghost small" id="clearBtn">Réinitialiser</button>
+            </div>
+            <div class="summary-strip">
+              <span class="filter-chip" id="columnChip">0 colonnes</span>
+              <span class="filter-chip">Exports = base complète, hors filtres</span>
+              <span class="filter-chip" id="syncChip">En attente</span>
+            </div>
+          </div>
 
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Date</th><th>Participant</th><th>E-mail</th><th>Clan</th><th>Invitations</th><th>Scores</th><th>Réponses</th></tr></thead>
-          <tbody id="rows"></tbody>
-        </table>
-        <div class="empty" id="emptyState">Aucune participation.</div>
+          <div class="table-wrap">
+            <table>
+              <thead id="tableHead"></thead>
+              <tbody id="rows"></tbody>
+            </table>
+            <div class="empty" id="emptyState">Aucune participation.</div>
+          </div>
+
+          <div class="bottom-bar">
+            <div class="source-note" id="sourceNote">Source : Google Sheets · toutes les colonnes sont reprises dynamiquement.</div>
+            <div class="pagination">
+              <button class="btn ghost small" id="prevBtn">←</button>
+              <div class="page-info" id="pageInfo">Page 1 / 1</div>
+              <button class="btn ghost small" id="nextBtn">→</button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="side-stack">
+          <section class="panel"><div class="panel-pad">
+            <div class="panel-title"><h3>Répartition des clans</h3></div>
+            <div class="bar-list">
+              <div class="bar-row"><span>Ombres</span><div class="bar-track"><div class="bar-fill dark" id="ombreBar"></div></div><strong id="ombrePct">0%</strong></div>
+              <div class="bar-row"><span>Lumières</span><div class="bar-track"><div class="bar-fill" id="lumiereBar"></div></div><strong id="lumierePct">0%</strong></div>
+            </div>
+          </div></section>
+          <section class="panel"><div class="panel-pad">
+            <div class="panel-title"><h3>Dernières participations</h3></div>
+            <div class="activity-list" id="activityList"></div>
+          </div></section>
+          <section class="panel"><div class="panel-pad">
+            <div class="panel-title"><h3>Colonnes détectées</h3></div>
+            <div id="columnList" class="activity-list"></div>
+          </div></section>
+        </aside>
       </div>
     </section>
   </main>
-</section></div>
+</section>
+</div>
 
-<div class="modal" id="modal"><div class="modal-card">
-  <div class="modal-head"><div><div class="kicker">Détail des réponses</div><h2 id="modalTitle">Réponses</h2><p class="muted" id="modalMeta"></p></div><button class="ghost" id="closeModal">Fermer</button></div>
-  <div class="answers-list" id="answersList"></div>
-</div></div>
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div><div class="eyebrow">Fiche participant</div><h2 id="modalTitle">Participation</h2><div class="muted" id="modalMeta"></div></div>
+      <button class="btn ghost small" id="closeModal">Fermer</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-grid" id="detailGrid"></div>
+      <div class="eyebrow" style="margin-top:24px">Réponses du quiz</div>
+      <div class="answers-grid" id="answersGrid"></div>
+      <div class="drawer-actions"><button class="btn ghost small" id="copyEmailBtn">Copier l'e-mail</button><button class="btn ghost small" id="closeModal2">Fermer</button></div>
+    </div>
+  </div>
+</div>
 
-<form id="serviceForm" method="POST" target="serviceFrame" style="display:none"><input type="hidden" name="payload" id="servicePayload"></form>
-<iframe name="serviceFrame" id="serviceFrame" title="Service" style="display:none"></iframe>
+<div class="toast" id="toast"><strong id="toastTitle">Information</strong><p id="toastText"></p></div>
 
 <script>
-const APP={url:window.DUALITY_CONFIG?.GOOGLE_SHEETS_WEBAPP_URL||'',origin:window.location.origin,channel:crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2),token:null,rows:[],filtered:[]};
-const $=id=>document.getElementById(id),loginView=$('loginView'),dashboard=$('dashboard'),loginForm=$('loginForm'),loginError=$('loginError'),serviceForm=$('serviceForm'),servicePayload=$('servicePayload');
-let responseTimer = null;
-function armResponseTimeout(label){
-  clearTimeout(responseTimer);
-  responseTimer = setTimeout(()=>{
-    if(label==='login' && !APP.token){
-      loginError.textContent='Le serveur admin ne répond pas. Vérifie que le nouveau Code.gs a bien été redéployé en /exec.';
-    }else if(label==='data' && APP.token){
-      $('status').textContent='Le serveur ne répond pas. Vérifie le déploiement Apps Script.';
+(() => {
+  const CONFIG = window.DUALITY_CONFIG || {};
+  const APP = {
+    url: CONFIG.GOOGLE_SHEETS_WEBAPP_URL || '',
+    token: sessionStorage.getItem('DUALITY_ADMIN_TOKEN') || '',
+    expiresAt: Number(sessionStorage.getItem('DUALITY_ADMIN_EXPIRES') || 0),
+    username: 'admin',
+    nonce: null,
+    rows: [],
+    filtered: [],
+    headers: [],
+    page: 1,
+    pageSize: 25,
+    query: '',
+    clan: '',
+    consent: ''
+  };
+
+  const $ = id => document.getElementById(id);
+  const loginView = $('loginView'), dashboardView = $('dashboardView'), loginForm = $('loginForm'), loginBtn = $('loginBtn');
+  const serverPill = $('serverPill'), serverText = $('serverText'), loginState = $('loginState'), loginError = $('loginError');
+  let cbSeq = 0;
+
+  function setServerState(mode, text) {
+    serverPill.classList.remove('online','busy');
+    if (mode === 'online' || mode === 'busy') serverPill.classList.add(mode);
+    serverText.textContent = text;
+  }
+
+  function toast(title, text) {
+    $('toastTitle').textContent = title;
+    $('toastText').textContent = text;
+    $('toast').classList.add('show');
+    clearTimeout(toast.timer);
+    toast.timer = setTimeout(() => $('toast').classList.remove('show'), 4200);
+  }
+
+  function esc(v) {
+    return String(v ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function safeCallbackName() {
+    return `dualityCb_${Date.now()}_${++cbSeq}`;
+  }
+
+  function jsonp(action, params = {}, timeoutMs = 12000) {
+    return new Promise((resolve, reject) => {
+      if (!APP.url) return reject(new Error('URL Google Apps Script absente dans config.js.'));
+      const callback = safeCallbackName();
+      const script = document.createElement('script');
+      const query = new URLSearchParams({ action, callback, channel: 'adminapp', origin: location.origin, ...params });
+      let timer = setTimeout(() => cleanup(new Error('Le serveur admin ne répond pas. Vérifie le déploiement /exec.')), timeoutMs);
+      function cleanup(err, value) {
+        clearTimeout(timer);
+        delete window[callback];
+        script.remove();
+        err ? reject(err) : resolve(value);
+      }
+      window[callback] = payload => cleanup(null, payload);
+      script.onerror = () => cleanup(new Error('Impossible de joindre le Web App Google Apps Script.'));
+      script.src = `${APP.url}${APP.url.includes('?') ? '&' : '?'}${query.toString()}`;
+      document.head.appendChild(script);
+    });
+  }
+
+  async function sha256(text) {
+    const data = new TextEncoder().encode(text);
+    const buffer = await crypto.subtle.digest('SHA-256', data);
+    return [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function login(username, password) {
+    setServerState('busy','Connexion…');
+    loginState.textContent = 'Connexion sécurisée au serveur…';
+    loginBtn.disabled = true;
+    try {
+      const challenge = await jsonp('adminChallenge', { username });
+      if (!challenge.ok || !challenge.nonce) throw new Error(challenge.error || 'Impossible de préparer la connexion.');
+      const credentialHash = await sha256(`${username}:${password}`);
+      const proof = await sha256(`${credentialHash}:${challenge.nonce}`);
+      const result = await jsonp('adminLogin', { username, nonce: challenge.nonce, proof });
+      if (!result.ok) throw new Error(result.error || 'Identifiants incorrects.');
+      APP.token = result.token;
+      APP.expiresAt = Number(result.expiresAt || Date.now() + 30*60*1000);
+      sessionStorage.setItem('DUALITY_ADMIN_TOKEN', APP.token);
+      sessionStorage.setItem('DUALITY_ADMIN_EXPIRES', String(APP.expiresAt));
+      $('password').value = '';
+      setServerState('online','Serveur connecté');
+      loginState.textContent = 'Connexion réussie. Chargement du tableau de bord…';
+      loginError.textContent = '';
+      loginView.classList.add('hidden');
+      dashboardView.classList.remove('hidden');
+      await loadData();
+    } catch (err) {
+      setServerState('','Serveur non joignable');
+      loginError.textContent = err.message || 'Connexion impossible.';
+      loginState.textContent = 'Échec de connexion.';
+    } finally {
+      loginBtn.disabled = false;
     }
-  }, 9000);
-}
-function postToService(payload){
-  if(!APP.url) throw new Error('L’URL Google Apps Script n’est pas configurée dans config.js.');
-  const body={...payload,origin:APP.origin,channel:APP.channel};
-  servicePayload.value=JSON.stringify(body);
-  serviceForm.action=APP.url;
-  serviceForm.submit();
-}
-function sha256(text){const data=new TextEncoder().encode(text);return crypto.subtle.digest('SHA-256',data).then(buf=>[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''))}
-window.addEventListener('message',event=>{clearTimeout(responseTimer);const msg=event.data||{};if(msg.source!=='duality-admin-service')return;const p=msg.payload||{};if(p.channel&&p.channel!==APP.channel)return;if(p.type==='login'){if(!p.ok){loginError.textContent=p.error||'Connexion refusée.';return}APP.token=p.token;loginError.textContent='';loginView.style.display='none';dashboard.classList.add('active');loadData()}if(p.type==='data'){if(!p.ok){if(p.authExpired){logoutLocal();loginError.textContent=p.error||'Session expirée.'}else $('status').textContent=p.error||'Erreur de chargement.';return}APP.rows=Array.isArray(p.rows)?p.rows:[];$('updatedAt').textContent=new Date(p.fetchedAt||Date.now()).toLocaleString('fr-FR');applyFilters();$('status').textContent=`${APP.rows.length} participation(s)`}if(p.type==='logout'){logoutLocal()}});
-loginForm.addEventListener('submit',async e=>{e.preventDefault();loginError.textContent='';try{const username=$('username').value.trim(),password=$('password').value;if(!username||!password){loginError.textContent='Renseigne les deux champs.';return}const hash=await sha256(`${username}:${password}`);$('password').value='';postToService({action:'adminLogin',username,credentialHash:hash})}catch(err){loginError.textContent=err.message||'Connexion impossible.'}});
-function loadData(){try{armResponseTimeout('data');postToService({action:'adminData',token:APP.token})}catch(err){$('status').textContent=err.message}}
-function logoutLocal(){APP.token=null;APP.rows=[];APP.filtered=[];dashboard.classList.remove('active');loginView.style.display='grid';$('rows').innerHTML='';$('emptyState').style.display='block'}
-$('refreshBtn').onclick=loadData;$('logoutBtn').onclick=()=>{try{postToService({action:'adminLogout',token:APP.token})}catch(e){}logoutLocal()};$('search').addEventListener('input',applyFilters);$('clanFilter').addEventListener('change',applyFilters);$('clearBtn').onclick=()=>{$('search').value='';$('clanFilter').value='';applyFilters()};
-function applyFilters(){const q=$('search').value.trim().toLowerCase(),c=$('clanFilter').value;APP.filtered=APP.rows.filter(r=>{const hay=`${r.firstName} ${r.lastName} ${r.email}`.toLowerCase();return(!q||hay.includes(q))&&(!c||r.clan===c)});renderStats();renderRows()}
-function renderStats(){$('totalStat').textContent=APP.rows.length;$('ombresStat').textContent=APP.rows.filter(r=>r.clan==='ombres').length;$('lumieresStat').textContent=APP.rows.filter(r=>r.clan==='lumieres').length;$('optinStat').textContent=APP.rows.filter(r=>r.wantsEvents).length}
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function clanTag(c){if(c==='ombres')return'<span class="tag ombres">Ombres</span>';if(c==='lumieres')return'<span class="tag lumieres">Lumières</span>';return'<span class="tag no">—</span>'}
-function renderRows(){const body=$('rows');body.innerHTML='';$('emptyState').style.display=APP.filtered.length?'none':'block';APP.filtered.forEach((r,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${esc(r.timestamp)}</td><td><strong>${esc(r.firstName)} ${esc(r.lastName)}</strong></td><td>${esc(r.email||'—')}</td><td>${clanTag(r.clan)}</td><td>${r.wantsEvents?'<span class="tag yes">Oui</span>':'<span class="tag no">Non</span>'}</td><td>${esc(r.lumieresScore)} / ${esc(r.ombresScore)}</td><td><button class="linkbtn" data-i="${i}">${Array.isArray(r.answers)?r.answers.length:0} réponses</button></td>`;body.appendChild(tr)});body.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>openAnswers(APP.filtered[Number(b.dataset.i)]))}
-function openAnswers(r){$('modalTitle').textContent=`${r.firstName} ${r.lastName}`;$('modalMeta').textContent=`${r.email||'Aucun e-mail'} · ${r.clan==='lumieres'?'Lumières':'Ombres'} · Invitations : ${r.wantsEvents?'oui':'non'}`;const list=$('answersList');list.innerHTML='';(Array.isArray(r.answers)?r.answers:[]).forEach((a,i)=>{const div=document.createElement('div');div.className='answer-item';div.innerHTML=`<small>Question ${i+1}</small><div><strong>${esc(a.question)}</strong></div><div style="margin-top:5px">${esc(a.answer)}</div>`;list.appendChild(div)});$('modal').classList.add('open')}
-$('closeModal').onclick=()=>$('modal').classList.remove('open');$('modal').addEventListener('click',e=>{if(e.target===$('modal'))$('modal').classList.remove('open')});
-function recordsForExport(){return APP.rows} // ALWAYS all participants
-function flatten(r){const out={'Date / heure':r.timestamp,'Prénom':r.firstName,'Nom':r.lastName,'E-mail':r.email,'Invitations / actualités':r.wantsEvents?'Oui':'Non','Clan':r.clan==='lumieres'?'Lumières':'Ombres','Score Lumières':r.lumieresScore,'Score Ombres':r.ombresScore};(r.answers||[]).forEach((a,i)=>out[`Q${i+1}`]=a.answer);return out}
-$('excelBtn').onclick=()=>{if(typeof XLSX==='undefined'){alert('Le module Excel n’est pas disponible.');return}const records=recordsForExport();if(!records.length){alert('Aucune donnée à exporter.');return}const wb=XLSX.utils.book_new(),ws=XLSX.utils.json_to_sheet(records.map(flatten));ws['!cols']=Object.keys(records.map(flatten)[0]||{}).map(k=>({wch:Math.min(44,Math.max(12,k.length+4))}));XLSX.utils.book_append_sheet(wb,ws,'Participations');XLSX.writeFile(wb,`duality-participations-${new Date().toISOString().slice(0,10)}.xlsx`)};
-$('pdfBtn').onclick=()=>{if(!window.jspdf){alert('Le module PDF n’est pas disponible.');return}const records=recordsForExport();if(!records.length){alert('Aucune donnée à exporter.');return}const{jsPDF}=window.jspdf,doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text('Duality — Participations',14,14);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.text(`Export du ${new Date().toLocaleString('fr-FR')} · ${records.length} participant(s)`,14,20);const body=records.map(r=>[r.timestamp,`${r.firstName} ${r.lastName}`.trim(),r.email||'—',r.clan==='lumieres'?'Lumières':'Ombres',r.wantsEvents?'Oui':'Non',`${r.lumieresScore} / ${r.ombresScore}`,(r.answers||[]).map((a,i)=>`Q${i+1}: ${a.answer}`).join(' · ')]);doc.autoTable({startY:26,head:[['Date','Participant','E-mail','Clan','Invités','Scores','Réponses']],body,styles:{fontSize:6.5,cellPadding:2,overflow:'linebreak'},headStyles:{fillColor:[55,9,14],textColor:[255,240,200]},columnStyles:{0:{cellWidth:29},1:{cellWidth:34},2:{cellWidth:42},3:{cellWidth:20},4:{cellWidth:18},5:{cellWidth:23}}});doc.save(`duality-participations-${new Date().toISOString().slice(0,10)}.pdf`)};
+  }
+
+  async function loadData() {
+    if (!APP.token || !APP.expiresAt || Date.now() > APP.expiresAt) {
+      return localLogout('Session expirée.');
+    }
+    setServerState('busy','Synchronisation…');
+    $('syncChip').textContent = 'Synchronisation en cours';
+    try {
+      const result = await jsonp('adminData', { token: APP.token }, 18000);
+      if (!result.ok) {
+        if (result.authExpired) return localLogout('Session expirée.');
+        throw new Error(result.error || 'Erreur de chargement.');
+      }
+      APP.headers = Array.isArray(result.headers) ? result.headers : [];
+      APP.rows = Array.isArray(result.rows) ? result.rows : [];
+      $('updatedAt').textContent = new Date(result.fetchedAt || Date.now()).toLocaleString('fr-FR');
+      $('syncChip').textContent = 'Synchronisé';
+      renderAll();
+      setServerState('online','Serveur connecté');
+    } catch (err) {
+      setServerState('','Erreur serveur');
+      $('syncChip').textContent = 'Échec de synchronisation';
+      toast('Synchronisation impossible', err.message || 'Le serveur admin ne répond pas.');
+    }
+  }
+
+  async function localLogout(message='') {
+    const token = APP.token;
+    APP.token = ''; APP.expiresAt = 0;
+    sessionStorage.removeItem('DUALITY_ADMIN_TOKEN');
+    sessionStorage.removeItem('DUALITY_ADMIN_EXPIRES');
+    loginView.classList.remove('hidden'); dashboardView.classList.add('hidden');
+    loginState.textContent = message || 'Déconnecté.';
+    setServerState('','Serveur en attente');
+    if (token) { try { await jsonp('adminLogout', { token }, 6000); } catch(e) {} }
+  }
+
+  function headerIndex(...terms) {
+    const normalized = APP.headers.map(h => normalizeHeader(h));
+    for (const term of terms) {
+      const t = normalizeHeader(term);
+      const idx = normalized.findIndex(h => h === t || h.includes(t));
+      if (idx >= 0) return idx;
+    }
+    return -1;
+  }
+
+  function normalizeHeader(v) {
+    return String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
+  }
+
+  function getCell(row, idx) { return idx >= 0 ? String(row.cells?.[idx] ?? '') : ''; }
+  function normalizedRow(row) {
+    const n = row.normalized || {};
+    const dateIdx = headerIndex('date / heure','date','timestamp');
+    const firstIdx = headerIndex('prénom','prenom','first name');
+    const lastIdx = headerIndex('nom','last name');
+    const emailIdx = headerIndex('e-mail','email');
+    const consentIdx = headerIndex('actualités / événements','actualites / evenements','invitations / actualités','invitations');
+    const clanIdx = headerIndex('clan');
+    const ansIdx = headerIndex('réponses','reponses');
+    const lumIdx = headerIndex('score lumières','score lumieres');
+    const ombIdx = headerIndex('score ombres');
+    return {
+      date: n.timestamp || getCell(row,dateIdx), firstName:n.firstName || getCell(row,firstIdx), lastName:n.lastName || getCell(row,lastIdx),
+      email:n.email || getCell(row,emailIdx), consent:n.wantsEvents === true || /^(oui|yes|true)$/i.test(getCell(row,consentIdx)),
+      clan:(n.clan || getCell(row,clanIdx)).toLowerCase(), answers:n.answers || parseAnswers(getCell(row,ansIdx)),
+      lumieres:n.lumieresScore ?? Number(getCell(row,lumIdx)||0), ombres:n.ombresScore ?? Number(getCell(row,ombIdx)||0)
+    };
+  }
+
+  function parseAnswers(v) {
+    try { const x = JSON.parse(v || '[]'); return Array.isArray(x) ? x : []; } catch(e) { return []; }
+  }
+
+  function applyFilters() {
+    const q = APP.query.trim().toLowerCase(), c = APP.clan, consent = APP.consent;
+    APP.filtered = APP.rows.filter(row => {
+      const hay = (row.cells || []).join(' ').toLowerCase();
+      const n = normalizedRow(row);
+      return (!q || hay.includes(q)) && (!c || n.clan === c) && (!consent || (consent === 'yes' ? n.consent : !n.consent));
+    });
+    const maxPage = Math.max(1, Math.ceil(APP.filtered.length / APP.pageSize));
+    APP.page = Math.min(APP.page, maxPage);
+    renderTable(); renderStats(); renderActivity();
+  }
+
+  function renderAll() {
+    $('columnChip').textContent = `${APP.headers.length} colonne${APP.headers.length>1?'s':''}`;
+    $('rowCountChip').textContent = `${APP.filtered.length} ligne${APP.filtered.length>1?'s':''}`;
+    $('columnList').innerHTML = APP.headers.map((h,i)=>`<div class="activity"><strong>${esc(h||`Colonne ${i+1}`)}</strong><span>${APP.rows.length} valeur(s) possible(s)</span></div>`).join('') || '<div class="muted">Aucune colonne détectée.</div>';
+    renderTableHead();
+    applyFilters();
+  }
+
+  function renderTableHead() {
+    $('tableHead').innerHTML = `<tr><th>#</th>${APP.headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr>`;
+  }
+
+  function formatCell(value, header, row) {
+    const h = normalizeHeader(header), v = String(value ?? '');
+    const n = normalizedRow(row);
+    if (h.includes('clan')) return v.toLowerCase()==='ombres' ? '<span class="tag ombres">Ombres</span>' : v.toLowerCase()==='lumieres' ? '<span class="tag lumieres">Lumières</span>' : esc(v);
+    if (h.includes('actualites') || h.includes('invitations')) return /^(oui|yes|true)$/i.test(v) ? '<span class="tag yes">Oui</span>' : '<span class="tag no">Non</span>';
+    if (h.includes('reponses')) return `<button class="linkbtn" data-open="${row.id}">${n.answers.length || 0} réponse${n.answers.length>1?'s':''}</button>`;
+    return `<div class="cell-wrap" title="${esc(v)}">${esc(v || '—')}</div>`;
+  }
+
+  function renderTable() {
+    const body = $('rows');
+    body.innerHTML='';
+    $('emptyState').style.display = APP.filtered.length ? 'none' : 'block';
+    const start = (APP.page-1)*APP.pageSize, items = APP.filtered.slice(start,start+APP.pageSize);
+    items.forEach((row, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${start+idx+1}</td>` + APP.headers.map((h,i)=>`<td>${formatCell(row.cells?.[i],h,row)}</td>`).join('');
+      body.appendChild(tr);
+    });
+    body.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>openParticipant(Number(b.dataset.open))));
+    $('rowCountChip').textContent = `${APP.filtered.length} ligne${APP.filtered.length>1?'s':''}`;
+    const totalPages = Math.max(1,Math.ceil(APP.filtered.length/APP.pageSize));
+    $('pageInfo').textContent = `Page ${APP.page} / ${totalPages}`;
+    $('prevBtn').disabled = APP.page <= 1; $('nextBtn').disabled = APP.page >= totalPages;
+  }
+
+  function renderStats() {
+    const normals = APP.rows.map(normalizedRow), total=normals.length;
+    const ombres=normals.filter(x=>x.clan==='ombres').length, lum=normals.filter(x=>x.clan==='lumieres').length, opt=normals.filter(x=>x.consent).length, emails=normals.filter(x=>x.email.trim()).length;
+    const todayKey = new Date().toLocaleDateString('fr-FR');
+    const today=normals.filter(x=>{ const d=new Date(x.date); return !isNaN(d) && d.toLocaleDateString('fr-FR')===todayKey; }).length;
+    $('totalStat').textContent=total; $('ombresStat').textContent=ombres; $('lumieresStat').textContent=lum; $('optinStat').textContent=opt; $('emailStat').textContent=emails; $('todayStat').textContent=today;
+    $('totalMini').textContent = total ? '100 % de la base reçue' : '—';
+    $('ombresMini').textContent = total ? `${Math.round(ombres/total*100)} %` : '0 %';
+    $('lumieresMini').textContent = total ? `${Math.round(lum/total*100)} %` : '0 %';
+    $('optinMini').textContent = total ? `${Math.round(opt/total*100)} % de consentement` : '0 %';
+    $('emailMini').textContent = total ? `${Math.round(emails/total*100)} %` : '0 %';
+    $('todayMini').textContent = today ? 'activité récente' : 'aucune aujourd’hui';
+    const opct=total?Math.round(ombres/total*100):0, lpct=total?Math.round(lum/total*100):0;
+    $('ombreBar').style.width = `${opct}%`; $('lumiereBar').style.width = `${lpct}%`; $('ombrePct').textContent=`${opct}%`; $('lumierePct').textContent=`${lpct}%`;
+  }
+
+  function renderActivity() {
+    const sorted = [...APP.rows].sort((a,b)=>new Date(normalizedRow(b).date)-new Date(normalizedRow(a).date)).slice(0,6);
+    $('activityList').innerHTML = sorted.length ? sorted.map(row=>{ const n=normalizedRow(row); return `<button class="activity" data-open="${row.id}" style="text-align:left;color:inherit;cursor:pointer"><strong>${esc(`${n.firstName} ${n.lastName}`.trim() || 'Participant')}</strong><span>${esc(n.date||'Date inconnue')} · ${n.clan==='lumieres'?'Lumières':n.clan==='ombres'?'Ombres':'Clan non renseigné'} · ${n.answers.length} réponse${n.answers.length>1?'s':''}</span></button>`; }).join('') : '<div class="muted">Aucune participation.</div>';
+    $('activityList').querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>openParticipant(Number(b.dataset.open))));
+  }
+
+  function openParticipant(id) {
+    const row = APP.rows.find(r=>Number(r.id)===Number(id)); if (!row) return;
+    const n = normalizedRow(row);
+    $('modalTitle').textContent = `${n.firstName} ${n.lastName}`.trim() || 'Participation';
+    $('modalMeta').textContent = `${n.email || 'Aucun e-mail'} · ${n.clan==='lumieres'?'Lumières':n.clan==='ombres'?'Ombres':'Clan non renseigné'} · Actualités / événements : ${n.consent?'oui':'non'}`;
+    $('detailGrid').innerHTML = APP.headers.map((h,i)=>`<div class="detail-item"><small>${esc(h)}</small><div>${esc(String(row.cells?.[i] ?? '') || '—')}</div></div>`).join('');
+    $('answersGrid').innerHTML = n.answers.length ? n.answers.map((a,i)=>`<div class="answer"><small>Question ${i+1}</small><div><strong>${esc(a.question || `Question ${i+1}`)}</strong></div><div style="margin-top:5px">${esc(a.answer ?? '')}</div></div>`).join('') : '<div class="muted" style="margin-top:12px">Aucune réponse JSON exploitable dans la colonne « Réponses ».</div>';
+    $('copyEmailBtn').onclick = async () => { if (!n.email) return toast('E-mail absent','Aucune adresse à copier.'); try { await navigator.clipboard.writeText(n.email); toast('E-mail copié',n.email); } catch(e) { toast('Copie impossible',n.email); } };
+    $('modal').classList.add('open'); $('modal').setAttribute('aria-hidden','false');
+  }
+
+  function closeModal(){ $('modal').classList.remove('open'); $('modal').setAttribute('aria-hidden','true'); }
+
+  function exportRows() { return APP.rows.map(r=>{ const obj={}; APP.headers.forEach((h,i)=>obj[h||`Colonne ${i+1}`]=r.cells?.[i] ?? ''); return obj; }); }
+  function filename(ext){return `duality-participations-${new Date().toISOString().slice(0,10)}.${ext}`}
+
+  $('excelBtn').onclick=()=>{ const records=exportRows(); if(!records.length) return toast('Aucune donnée','La base est vide.'); if(typeof XLSX==='undefined') return toast('Excel indisponible','Le module XLSX n’a pas été chargé.'); const wb=XLSX.utils.book_new(),ws=XLSX.utils.json_to_sheet(records); ws['!cols']=APP.headers.map(h=>({wch:Math.min(45,Math.max(12,String(h).length+4))})); XLSX.utils.book_append_sheet(wb,ws,'Participations'); XLSX.writeFile(wb,filename('xlsx')); };
+  $('csvBtn').onclick=()=>{ const records=exportRows(); if(!records.length) return toast('Aucune donnée','La base est vide.'); const head=APP.headers.map(h=>`"${String(h).replace(/"/g,'""')}"`).join(','); const body=APP.rows.map(r=>APP.headers.map((_,i)=>`"${String(r.cells?.[i]??'').replace(/"/g,'""')}"`).join(',')).join('\n'); const blob=new Blob([head+'\n'+body],{type:'text/csv;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename('csv'); a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),500); };
+  $('pdfBtn').onclick=()=>{ if(!APP.rows.length) return toast('Aucune donnée','La base est vide.'); if(!window.jspdf || !window.jspdf.jsPDF) return toast('PDF indisponible','Les modules PDF n’ont pas été chargés.'); const {jsPDF}=window.jspdf,doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'}); doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text('Duality — Participations',14,13); doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.text(`Export complet · ${APP.rows.length} participant(s) · ${new Date().toLocaleString('fr-FR')}`,14,19); const head=[APP.headers], body=APP.rows.map(r=>APP.headers.map((_,i)=>String(r.cells?.[i]??''))); doc.autoTable({startY:24,head,body,styles:{fontSize:5.7,cellPadding:1.4,overflow:'linebreak'},headStyles:{fillColor:[55,9,14],textColor:[255,240,200]},margin:{left:10,right:10}}); doc.save(filename('pdf')); };
+
+  $('search').addEventListener('input',e=>{APP.query=e.target.value;APP.page=1;applyFilters()});
+  $('clanFilter').addEventListener('change',e=>{APP.clan=e.target.value;APP.page=1;applyFilters()});
+  $('consentFilter').addEventListener('change',e=>{APP.consent=e.target.value;APP.page=1;applyFilters()});
+  $('clearBtn').onclick=()=>{ $('search').value='';$('clanFilter').value='';$('consentFilter').value='';APP.query='';APP.clan='';APP.consent='';APP.page=1;applyFilters(); };
+  $('prevBtn').onclick=()=>{if(APP.page>1){APP.page--;renderTable();}};
+  $('nextBtn').onclick=()=>{const max=Math.max(1,Math.ceil(APP.filtered.length/APP.pageSize));if(APP.page<max){APP.page++;renderTable();}};
+  $('refreshBtn').onclick=loadData;
+  $('logoutBtn').onclick=()=>localLogout('Déconnecté.');
+  $('closeModal').onclick=closeModal; $('closeModal2').onclick=closeModal; $('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});
+
+  loginForm.addEventListener('submit', async e => { e.preventDefault(); loginError.textContent=''; const username=$('username').value.trim(); const password=$('password').value; if(!username || !password){loginError.textContent='Renseigne les deux champs.';return;} await login(username,password); });
+
+  // Tentative de reprise de session après actualisation.
+  if (APP.token && APP.expiresAt > Date.now()) {
+    loginView.classList.add('hidden'); dashboardView.classList.remove('hidden'); loadData();
+  }
+})();
 </script>
 </body>
 </html>
